@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Registration extends StatefulWidget {
-  const Registration({super.key});
+  final Function(int) onChangedStep;
+  const Registration({required this.onChangedStep, super.key});
 
   @override
   State<Registration> createState() => _RegistrationState();
@@ -17,11 +18,18 @@ class _RegistrationState extends State<Registration> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        extendBody: true,
+        extendBodyBehindAppBar: true,
         appBar: AppBar(
-          titleSpacing: 125,
-          title: const Text('FriendMatch'),
-          backgroundColor: Colors.cyan,
           elevation: 0,
+          backgroundColor: Colors.transparent,
+          leading: IconButton(
+              icon: const Icon(
+                Icons.close,
+                color: Colors.black,
+                size: 30,
+              ),
+              onPressed: () => widget.onChangedStep(1)),
         ),
         body: Center(
           child: SingleChildScrollView(
@@ -30,7 +38,7 @@ class _RegistrationState extends State<Registration> {
               children: [
                 RichText(
                   text: TextSpan(
-                    text: 'inscription'.toUpperCase(),
+                    text: 'subscription'.toUpperCase(),
                     style: const TextStyle(
                       color: Colors.blue,
                       fontWeight: FontWeight.bold,
@@ -44,17 +52,17 @@ class _RegistrationState extends State<Registration> {
                   key: _formkey,
                   child: Column(
                     children: [
-                      const Text('Entrez votre adresse email'),
+                      const Text('email'),
                       TextFormField(
                         onChanged: (value) => setState(() {
                           _email = value;
                         }),
                         validator: (value) =>
                             value!.isEmpty || !emailRegex.hasMatch(value)
-                                ? 'Adresse mail incorrect'
+                                ? 'wrong email'
                                 : null,
                         decoration: InputDecoration(
-                          hintText: 'Ex : exemple@mail.com',
+                          hintText: 'Ex : example@mail.com',
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(0.0),
                               borderSide: const BorderSide(color: Colors.grey)),
@@ -69,14 +77,14 @@ class _RegistrationState extends State<Registration> {
                 Form(
                   child: Column(
                     children: [
-                      const Text('choisissez votre mot de passe'),
+                      const Text('Choose your password'),
                       TextFormField(
                         obscureText: _isSecret,
                         onChanged: (value) => setState(() {
                           _password = value;
                         }),
                         validator: (value) => value!.length < 6
-                            ? "Entrer un mots de passe d'au moins 6 charactère"
+                            ? "At least 6 char password"
                             : null,
                         decoration: InputDecoration(
                           suffixIcon: InkWell(
@@ -106,7 +114,7 @@ class _RegistrationState extends State<Registration> {
                                 if (_formkey.currentState!.validate())
                                   {print(_email), print(_password)}
                               },
-                  child: const Text('Continuer'),
+                  child: const Text('Confirm'),
                 ),
               ],
             ),

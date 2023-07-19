@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:happly/src/data/data.dart';
+import 'package:happly/src/screens/public/delayed_animated.dart';
 
 class AuthScreen extends StatefulWidget {
   final Function(int) onChangedStep;
@@ -18,36 +21,62 @@ class _AuthScreenState extends State<AuthScreen> {
   String _password = '';
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          titleSpacing: 125,
-          title: const Text('FriendMatch'),
-          backgroundColor: Colors.cyan,
-          elevation: 0,
-        ),
-        body: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsetsDirectional.symmetric(horizontal: 30),
-            child: Column(
-              children: [
-                RichText(
-                  text: TextSpan(
-                    text: 'connexion'.toUpperCase(),
-                    style: const TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
-                    ),
+    return Scaffold(
+      extendBody: true,
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+            icon: const Icon(
+              Icons.close,
+              color: Colors.black,
+              size: 30,
+            ),
+            onPressed: () => widget.onChangedStep(1)),
+      ),
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsetsDirectional.symmetric(horizontal: 30),
+          child: Column(
+            children: [
+              DelayedAnimated(
+                delay: 1500,
+                child: SizedBox(
+                  height: 200,
+                  child: SizedBox(
+                      height: 200,
+                      child: Image.asset('lib/img/logoprincipaleblanc.png')),
+                ),
+              ),
+              DelayedAnimated(
+                delay: 1500,
+                child: Text(
+                  "Connexion with your email",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.lato(
+                    color: primaryColor,
+                    fontSize: 16,
                   ),
                 ),
-                const SizedBox(
-                  height: 50.0,
-                ),
-                Form(
+              ),
+              const SizedBox(
+                height: 50.0,
+              ),
+              DelayedAnimated(
+                delay: 2500,
+                child: Form(
                   key: _formkey,
                   child: Column(
                     children: [
-                      const Text('Entrez votre adresse email'),
+                      Text(
+                        "Your email",
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.lato(
+                          color: tipo,
+                          fontSize: 16,
+                        ),
+                      ),
                       TextFormField(
                         onChanged: (value) => setState(() {
                           _email = value;
@@ -64,13 +93,23 @@ class _AuthScreenState extends State<AuthScreen> {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                Form(
+              ),
+              const SizedBox(
+                height: 20.0,
+              ),
+              DelayedAnimated(
+                delay: 3500,
+                child: Form(
                   child: Column(
                     children: [
-                      const Text('Entrez votre mot de passe'),
+                      Text(
+                        "Password",
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.lato(
+                          color: tipo,
+                          fontSize: 16,
+                        ),
+                      ),
                       TextFormField(
                         obscureText: _isSecret,
                         decoration: InputDecoration(
@@ -90,25 +129,49 @@ class _AuthScreenState extends State<AuthScreen> {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 10.0,
+              ),
+              const SizedBox(
+                height: 20.0,
+              ),
+              DelayedAnimated(
+                delay: 4500,
+                child: Container(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () => widget.onChangedStep(4),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: primaryColor,
+                      shape: const StadiumBorder(),
+                      padding: const EdgeInsets.all(13),
+                    ),
+                    child: Text(
+                      "Confirm",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.lato(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
                 ),
-                ElevatedButton(
-                  onPressed: () => widget.onChangedStep(3),
-                  child: const Text('Continuer'),
-                ),
-                GestureDetector(
-                  onTap: () => widget.onChangedStep(1),
+              ),
+              const SizedBox(
+                height: 20.0,
+              ),
+              DelayedAnimated(
+                delay: 5500,
+                child: GestureDetector(
+                  onTap: () => widget.onChangedStep(2),
                   child: Text(
-                    "S'inscrire",
+                    "Subscribe",
                     style: TextStyle(
-                      color: Colors.blue[900],
+                      color: neutral,
                       fontStyle: FontStyle.italic,
                     ),
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
         ),
       ),
