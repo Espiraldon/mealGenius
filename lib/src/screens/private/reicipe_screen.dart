@@ -24,6 +24,7 @@ class _ReicipeScreenState extends State<ReicipeScreen> {
     Colors.grey,
     Colors.grey,
   ];
+  // ignore: unused_field
   int _selectindex = 0;
   void _onItemTapped(
     int index,

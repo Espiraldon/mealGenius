@@ -1,11 +1,9 @@
 // ignore_for_file: must_be_immutable
 
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:happly/src/models/content.dart';
-import 'package:happly/src/screens/private/Ingredients_screen.dart';
 import 'package:happly/src/widget/custom_appbar.dart';
 
 import '../data/data.dart';

@@ -41,11 +41,11 @@ class _DailyScreenState extends State<DailyScreen> {
       appBar: CustomAppbar(
         title: _pagetitle,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new),
+          icon: const Icon(Icons.arrow_back_ios_new),
           onPressed: () => onItemTapped((_selectindex - 1) % 3),
         ),
         secondleading: IconButton(
-          icon: Icon(Icons.arrow_forward_ios),
+          icon: const Icon(Icons.arrow_forward_ios),
           onPressed: () => onItemTapped((_selectindex + 1) % 3),
         ),
       ),

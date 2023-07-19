@@ -8,7 +8,6 @@ import 'package:happly/src/screens/private/shoplist_screen.dart';
 import 'package:happly/src/widget/dashboard_containers.dart';
 import 'package:happly/src/widget/custom_appbar.dart';
 
-import '../../widget/health.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
