@@ -141,3 +141,30 @@ List<IngredientContent> expiredIngredients = myIngredients
         element.expirationDate.difference(DateTime.now()).inDays <= 0)
     .toList();
 List<ReicipeContent> myReicipe = [pasta, pasta2];
+
+int currentday = DateTime.now().weekday;
+
+List<ReicipeContent>? monday =
+    List<ReicipeContent>.filled(4, ReicipeContent(ingredients: []));
+List<ReicipeContent>? tuesday =
+    List<ReicipeContent>.filled(4, ReicipeContent(ingredients: []));
+List<ReicipeContent>? wenesday =
+    List<ReicipeContent>.filled(4, ReicipeContent(ingredients: []));
+List<ReicipeContent>? thirsday =
+    List<ReicipeContent>.filled(4, ReicipeContent(ingredients: []));
+List<ReicipeContent>? friday =
+    List<ReicipeContent>.filled(4, ReicipeContent(ingredients: []));
+List<ReicipeContent>? saturday =
+    List<ReicipeContent>.filled(4, ReicipeContent(ingredients: []));
+List<ReicipeContent>? sunday =
+    List<ReicipeContent>.filled(4, ReicipeContent(ingredients: []));
+List<List<ReicipeContent>?> weekday = [
+  monday,
+  tuesday,
+  wenesday,
+  thirsday,
+  friday,
+  saturday,
+  sunday
+];
+List<ReicipeContent>? todayReicipe = weekday[currentday];

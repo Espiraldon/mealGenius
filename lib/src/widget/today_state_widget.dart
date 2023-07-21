@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:happly/src/models/content.dart';
@@ -16,18 +18,26 @@ class Today extends StatefulWidget {
 
 class _TodayState extends State<Today> {
   @override
+  void initState() {
+    super.initState();
+    todayReicipe = weekday[currentday - 1];
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const SingleChildScrollView(
+    return SingleChildScrollView(
       child: SafeArea(
         child: Padding(
-          padding: EdgeInsets.only(right: 15.0, left: 15),
+          padding: const EdgeInsets.only(right: 15.0, left: 15),
           child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                DailyConsumeWidget(),
-                MoneySpentWidget(),
-                MenuWidget(),
+                const DailyConsumeWidget(),
+                const MoneySpentWidget(),
+                MenuWidget(
+                  reicipe: todayReicipe,
+                ),
               ]),
         ),
       ),
@@ -36,32 +46,59 @@ class _TodayState extends State<Today> {
 }
 
 class MenuWidget extends StatefulWidget {
-  const MenuWidget({super.key});
+  List<ReicipeContent>? reicipe;
+  MenuWidget({required this.reicipe, super.key});
 
   @override
   State<MenuWidget> createState() => _MenuWidgetState();
 }
 
 class _MenuWidgetState extends State<MenuWidget> {
-  List<MenuClass> menulist = <MenuClass>[
-    MenuClass(
-        name: 'Break feast',
-        icon: Icons.coffee,
-        max: 200,
-        realised: 60,
-        reicipe: pasta2),
-    MenuClass(name: 'Lunch', icon: FoodIcons.wisk, max: 200, realised: 60),
-    MenuClass(name: 'Dinner', icon: FoodIcons.bowl, max: 100, realised: 50),
-    MenuClass(name: 'Snack', icon: FoodIcons.oven, max: 40, realised: 0)
-  ];
-  void onItemtap(MenuClass menu) {
+  late List<MenuClass> menulist;
+  void init() {
+    menulist = <MenuClass>[
+      MenuClass(
+          name: 'Break feast',
+          icon: Icons.coffee,
+          max: 600,
+          realised: int.parse(widget.reicipe![0].calories),
+          reicipe: widget.reicipe![0]),
+      MenuClass(
+          name: 'Lunch',
+          icon: FoodIcons.wisk,
+          max: 800,
+          realised: int.parse(widget.reicipe![1].calories),
+          reicipe: widget.reicipe![1]),
+      MenuClass(
+          name: 'Dinner',
+          icon: FoodIcons.bowl,
+          max: 600,
+          realised: int.parse(widget.reicipe![2].calories),
+          reicipe: widget.reicipe![2]),
+      MenuClass(
+          name: 'Snack',
+          icon: FoodIcons.oven,
+          max: 40,
+          realised: int.parse(widget.reicipe![3].calories),
+          reicipe: widget.reicipe![3])
+    ];
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    init();
+  }
+
+  void onItemtap(MenuClass menu, int index) {
     setState(
       () {
         String change = myReicipe[0].title;
         showDialog(
             context: context,
             builder: (BuildContext context) {
-              return menu.reicipe == null
+              return menu.reicipe == null ||
+                      menu.reicipe!.title == 'New reicipe'
                   ? AlertDialog(
                       title: Text(
                         'Add reicipe',
@@ -86,8 +123,10 @@ class _MenuWidgetState extends State<MenuWidget> {
                                     })),
                             TextButton(
                                 onPressed: () => setState(() {
-                                      menu.reicipe = myReicipe.firstWhere(
-                                          (element) => element.title == change);
+                                      widget.reicipe![index] =
+                                          myReicipe.firstWhere((element) =>
+                                              element.title == change);
+                                      init();
                                       Navigator.of(context).pop();
                                     }),
                                 child: Text(
@@ -224,11 +263,12 @@ class _MenuWidgetState extends State<MenuWidget> {
                     right: 15,
                     top: 15,
                     child: GestureDetector(
-                      onTap: () => onItemtap(menu),
+                      onTap: () => onItemtap(menu, index),
                       child: CircleAvatar(
                         radius: 15,
                         backgroundColor: primaryColor,
-                        child: menu.reicipe == null
+                        child: menu.reicipe == null ||
+                                menu.reicipe!.title == 'New reicipe'
                             ? Icon(
                                 Icons.add,
                                 color: backgroundColor,
@@ -256,20 +296,114 @@ class MoneySpentWidget extends StatefulWidget {
 }
 
 class _MoneySpentWidgetState extends State<MoneySpentWidget> {
+  double sum(List<String> k) {
+    double sum = 0;
+    for (int i = 0; i < 3; i++) {
+      sum += double.parse(k[i]);
+    }
+    return sum;
+  }
+
+  late bool isCheaper;
+  @override
+  void initState() {
+    super.initState();
+    isCheaper = sum(todayReicipe!
+            .where((element) => element.cost.runtimeType == String)
+            .map((e) => e.cost)
+            .toList()) >
+        sum(weekday[currentday - 2]!
+            .where((element) => element.cost.runtimeType == String)
+            .map((e) => e.cost)
+            .toList());
+  }
+
   @override
   Widget build(BuildContext context) {
+    bool priceCompare(double previous, double now) {
+      return previous > now;
+    }
+
     return Padding(
       padding: const EdgeInsets.only(top: 10.0),
       child: Stack(
         children: [
           Container(
-            height: 150,
+            height: 250,
             width: double.infinity,
             decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(20)),
-              color: positive,
+              borderRadius: const BorderRadius.all(Radius.circular(25)),
+              color: primaryColor,
             ),
           ),
+          Positioned(
+              bottom: 20,
+              left: 25,
+              child: Stack(
+                children: [
+                  Container(
+                    height: 80,
+                    width: 310,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(25)),
+                      color: secondColor,
+                    ),
+                  ),
+                  Positioned(
+                    top: 15,
+                    left: 20,
+                    child: Text(
+                      'Today',
+                      style: GoogleFonts.lato(
+                          color: backgroundColor,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 10,
+                    left: 20,
+                    child: Row(
+                      children: [
+                        Text(
+                          '€${sum(todayReicipe!.where((element) => element.cost.runtimeType == String).map((e) => e.cost).toList())}',
+                          style: GoogleFonts.lato(
+                              color: backgroundColor,
+                              fontSize: 30,
+                              fontWeight: FontWeight.w800),
+                        ),
+                        Text(
+                          ' euro',
+                          style: GoogleFonts.lato(
+                              color: backgroundColor,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    right: 50,
+                    bottom: 30,
+                    child: Row(
+                      children: [
+                        Text(
+                          '${sum(todayReicipe!.where((element) => element.cost.runtimeType == String).map((e) => e.cost).toList()) / sum(weekday[currentday - 2]!.where((element) => element.cost.runtimeType == String).map((e) => e.cost).toList())}% ',
+                          style: GoogleFonts.lato(
+                              color: backgroundColor,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        isCheaper == true
+                            ? Image.asset('lib/img/increase.png',
+                                height: 25, width: 25)
+                            : Image.asset('lib/img/decrease.png',
+                                height: 25, width: 25)
+                      ],
+                    ),
+                  )
+                ],
+              ))
         ],
       ),
     );

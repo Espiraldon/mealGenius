@@ -11,6 +11,12 @@ class DailyConsumeWidget extends StatefulWidget {
 }
 
 class _DailyConsumeWidgetState extends State<DailyConsumeWidget> {
+  int sum(List<String> k) {
+    int sum = 0;
+    for (int i = 0; i < 3; i++) sum += int.parse(k[i]);
+    return sum;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -40,7 +46,7 @@ class _DailyConsumeWidgetState extends State<DailyConsumeWidget> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            '1291',
+                            '${sum(todayReicipe!.where((element) => element.calories.runtimeType == String).map((e) => e.calories).toList())}',
                             style: GoogleFonts.lato(
                                 color: tipo, fontWeight: FontWeight.w900),
                           ),
@@ -58,7 +64,13 @@ class _DailyConsumeWidgetState extends State<DailyConsumeWidget> {
                       child: Transform.rotate(
                         angle: -0.75 * 3.14,
                         child: CircularProgressIndicator(
-                          value: 1 * 0.75,
+                          value: sum(todayReicipe!
+                                  .where((element) =>
+                                      element.calories.runtimeType == String)
+                                  .map((e) => e.calories)
+                                  .toList()) /
+                              2000 *
+                              0.75,
                           strokeWidth: 8,
                           color: primaryColor,
                           backgroundColor: backgroundColor2,
@@ -100,25 +112,37 @@ class _DailyConsumeWidgetState extends State<DailyConsumeWidget> {
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ConsumeWidget(
                     title: 'Glucides',
                     expected: 254,
-                    realised: 200,
+                    realised: sum(todayReicipe!
+                        .where(
+                            (element) => element.glucides.runtimeType == String)
+                        .map((e) => e.glucides)
+                        .toList()),
                   ),
                   ConsumeWidget(
                     title: 'Protéines',
                     expected: 103,
-                    realised: 35,
+                    realised: sum(todayReicipe!
+                        .where((element) =>
+                            element.proteines.runtimeType == String)
+                        .map((e) => e.proteines)
+                        .toList()),
                   ),
                   ConsumeWidget(
                     title: 'Lipides',
-                    expected: 68,
-                    realised: 32,
+                    expected: 120,
+                    realised: sum(todayReicipe!
+                        .where(
+                            (element) => element.lipides.runtimeType == String)
+                        .map((e) => e.lipides)
+                        .toList()),
                   ),
                 ],
               ),

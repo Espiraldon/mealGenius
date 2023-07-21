@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:happly/src/models/content.dart';
 
 import '../../data/data.dart';
 import '../../widget/custom_appbar.dart';
 import '../../widget/mounth_state_widget.dart';
-import '../../widget/reicipe.dart';
 import '../../widget/today_state_widget.dart';
-import '../../widget/week_month_widget.dart';
+import '../../widget/week_widget.dart';
 
 class DailyScreen extends StatefulWidget {
   const DailyScreen({super.key});
@@ -34,7 +32,6 @@ class _DailyScreenState extends State<DailyScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Widget? back = _widgetOption[_selectindex];
     return Scaffold(
       extendBody: true,
       extendBodyBehindAppBar: true,

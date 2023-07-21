@@ -1,8 +1,12 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:happly/src/widget/today_state_widget.dart';
 
 import '../data/data.dart';
+import '../models/content.dart';
 
 class Week extends StatefulWidget {
   const Week({super.key});
@@ -17,24 +21,31 @@ class _WeekState extends State<Week> {
     List<Widget> widgets = [
       DayperWeekWidget(
         day: 'Monday',
+        reicipe: monday,
       ),
       DayperWeekWidget(
         day: 'Tuesday',
+        reicipe: tuesday,
       ),
       DayperWeekWidget(
         day: 'Wenesday',
+        reicipe: wenesday,
       ),
       DayperWeekWidget(
         day: 'Thirsday',
+        reicipe: thirsday,
       ),
       DayperWeekWidget(
         day: 'Friday',
+        reicipe: friday,
       ),
       DayperWeekWidget(
         day: 'Saturday',
+        reicipe: saturday,
       ),
       DayperWeekWidget(
         day: 'Sunday',
+        reicipe: sunday,
       ),
     ];
     return SafeArea(
@@ -52,7 +63,8 @@ class _WeekState extends State<Week> {
 
 class DayperWeekWidget extends StatefulWidget {
   final String day;
-  const DayperWeekWidget({required this.day, super.key});
+  List<ReicipeContent>? reicipe;
+  DayperWeekWidget({required this.reicipe, required this.day, super.key});
 
   @override
   State<DayperWeekWidget> createState() => _DayperWeekWidgetState();
@@ -75,13 +87,23 @@ class _DayperWeekWidgetState extends State<DayperWeekWidget> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: Stack(
+            alignment: Alignment.bottomRight,
             children: [
               Container(
                 height: 500,
-                width: MediaQuery.of(context).size.width,
+                width: double.infinity,
                 decoration: BoxDecoration(
                     color: backgroundColor2,
-                    borderRadius: BorderRadius.circular(10)),
+                    borderRadius: BorderRadius.circular(20)),
+              ),
+              Container(
+                height: 250,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: neutral, borderRadius: BorderRadius.circular(20)),
+                child: MenuWidget(
+                  reicipe: widget.reicipe,
+                ),
               ),
             ],
           ),
