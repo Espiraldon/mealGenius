@@ -8,6 +8,7 @@ import 'package:happly/src/models/content.dart';
 import 'package:happly/src/screens/private/Ingredients_screen.dart';
 
 import '../../widget/custom_appbar.dart';
+import 'home_screen.dart';
 
 class ExpireScreen extends StatefulWidget {
   final Function(int) onItemtap;
@@ -54,63 +55,81 @@ class _ExpireScreenState extends State<ExpireScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppbar(
-        title: 'Expiration',
-        leading: IconButton(
-            onPressed: () => widget.onItemtap(0),
-            icon: const Icon(Icons.arrow_back_ios_new_outlined)),
-      ),
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.only(right: 15.0, left: 15),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: Text(
-                  'All products',
-                  style: GoogleFonts.lato(
-                      color: tipo, fontSize: 30, fontWeight: FontWeight.w900),
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              SearchBar(
-                backgroundColor: MaterialStatePropertyAll(backgroundColor2),
-                hintText: 'Search product',
-                textStyle: MaterialStatePropertyAll(
-                    GoogleFonts.lato(color: Colors.grey, fontSize: 15)),
-                leading: const Icon(Icons.search_outlined),
-              ),
-              Row(
-                children: [
-                  ActionBar(
-                    index: 0,
-                    title: 'By expiration date',
-                    colors: colorbar,
-                    onItemtap: _onItemTapped,
-                    leading: Icon(
-                      Icons.calendar_month,
-                      color: colorbar[0],
+    return Dismissible(
+      key: const Key('value'),
+      resizeDuration: const Duration(milliseconds: 1),
+      background: const HomeScreen(),
+      direction: DismissDirection.startToEnd,
+      onDismissed: (direction) {
+        if (direction == DismissDirection.startToEnd) {
+          widget.onItemtap(0);
+        }
+      },
+      child: Scaffold(
+        appBar: CustomAppbar(
+          title: 'Expiration',
+          leading: IconButton(
+              onPressed: () => widget.onItemtap(0),
+              icon: const Icon(Icons.arrow_back_ios_new_outlined)),
+        ),
+        body: SingleChildScrollView(
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.only(right: 15.0, left: 15),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                      child: Text(
+                        'All products',
+                        style: GoogleFonts.lato(
+                            color: tipo,
+                            fontSize: 30,
+                            fontWeight: FontWeight.w900),
+                      ),
                     ),
-                  ),
-                  ActionBar(
-                    index: 1,
-                    title: 'By field',
-                    colors: colorbar,
-                    onItemtap: _onItemTapped,
-                    leading: Icon(
-                      Icons.list,
-                      color: colorbar[1],
+                    const SizedBox(
+                      height: 10,
                     ),
-                  ),
-                ],
-              ),
-              SelectWidget[_selectindex],
-            ]),
+                    SearchBar(
+                      backgroundColor:
+                          MaterialStatePropertyAll(backgroundColor2),
+                      hintText: 'Search product',
+                      textStyle: MaterialStatePropertyAll(
+                          GoogleFonts.lato(color: Colors.grey, fontSize: 15)),
+                      leading: const Icon(Icons.search_outlined),
+                      onChanged: (value) => setState(() {
+                        print('$value');
+                      }),
+                    ),
+                    Row(
+                      children: [
+                        ActionBar(
+                          index: 0,
+                          title: 'By expiration date',
+                          colors: colorbar,
+                          onItemtap: _onItemTapped,
+                          leading: Icon(
+                            Icons.calendar_month,
+                            color: colorbar[0],
+                          ),
+                        ),
+                        ActionBar(
+                          index: 1,
+                          title: 'By field',
+                          colors: colorbar,
+                          onItemtap: _onItemTapped,
+                          leading: Icon(
+                            Icons.list,
+                            color: colorbar[1],
+                          ),
+                        ),
+                      ],
+                    ),
+                    SelectWidget[_selectindex],
+                  ]),
+            ),
           ),
         ),
       ),
@@ -241,9 +260,11 @@ class _ExpirationbyFieldWidgetState extends State<ExpirationbyFieldWidget> {
                       onDismissed: (direction) {
                         if (direction == DismissDirection.endToStart) {
                           setState(() {
-                            widget.ingredientList.removeAt(index);
-                            myIngredients.removeWhere(
-                                (element) => element.name == ingredient.name);
+                            widget.ingredientList[index].number == 0;
+                            myIngredients
+                                .firstWhere((element) =>
+                                    element.name == ingredient.name)
+                                .number = 0;
                             expiredIngredients.removeWhere(
                                 (element) => element.name == ingredient.name);
                           });
@@ -477,9 +498,11 @@ class _ExpirationWidgetState extends State<ExpirationWidget> {
                       onDismissed: (direction) {
                         if (direction == DismissDirection.endToStart) {
                           setState(() {
-                            widget.ingredientList.removeAt(index);
-                            myIngredients.removeWhere(
-                                (element) => element.name == ingredient.name);
+                            widget.ingredientList[index].number == 0;
+                            myIngredients
+                                .firstWhere((element) =>
+                                    element.name == ingredient.name)
+                                .number = 0;
                             expiredIngredients.removeWhere(
                                 (element) => element.name == ingredient.name);
                           });

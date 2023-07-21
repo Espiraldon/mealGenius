@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:happly/src/data/data.dart';
 import 'package:happly/src/models/content.dart';
+import 'package:happly/src/screens/private/home_screen.dart';
 import 'package:happly/src/widget/shop_list_page_widget.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../widget/custom_appbar.dart';
@@ -102,61 +103,75 @@ class _ShoplistScreeenState extends State<ShoplistScreeen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppbar(
-        title: 'Shopping lists',
-        leading: IconButton(
-            onPressed: () => widget.onItemtap(0),
-            icon: const Icon(Icons.arrow_back_ios_new_outlined)),
-      ),
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 530,
-                    width: double.infinity,
-                    color: backgroundColor,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text('Our recommandation',
-                              style: GoogleFonts.lato(color: Colors.grey[500])),
-                          ShopListWidget(shoplistList: recommandationShopList),
-                          Text('Rencently created',
-                              style: GoogleFonts.lato(color: Colors.grey[500])),
-                          ShopListWidget(
-                            shoplistList: myShopList,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  GestureDetector(
-                    onTap: () => _createshoplist(myShopList),
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 50,
+    return Dismissible(
+      key: const Key('value'),
+      resizeDuration: const Duration(milliseconds: 1),
+      background: const HomeScreen(),
+      direction: DismissDirection.startToEnd,
+      onDismissed: (direction) {
+        if (direction == DismissDirection.startToEnd) {
+          widget.onItemtap(0);
+        }
+      },
+      child: Scaffold(
+        appBar: CustomAppbar(
+          title: 'Shopping lists',
+          leading: IconButton(
+              onPressed: () => widget.onItemtap(0),
+              icon: const Icon(Icons.arrow_back_ios_new_outlined)),
+        ),
+        body: SingleChildScrollView(
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 530,
                       width: double.infinity,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(22),
-                          color: primaryColor),
-                      child: Text(
-                        'Create new shoplist',
-                        style: GoogleFonts.lato(color: backgroundColor),
+                      color: backgroundColor,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text('Our recommandation',
+                                style:
+                                    GoogleFonts.lato(color: Colors.grey[500])),
+                            ShopListWidget(
+                                shoplistList: recommandationShopList),
+                            Text('Rencently created',
+                                style:
+                                    GoogleFonts.lato(color: Colors.grey[500])),
+                            ShopListWidget(
+                              shoplistList: myShopList,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  )
-                ]),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    GestureDetector(
+                      onTap: () => _createshoplist(myShopList),
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 50,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(22),
+                            color: primaryColor),
+                        child: Text(
+                          'Create new shoplist',
+                          style: GoogleFonts.lato(color: backgroundColor),
+                        ),
+                      ),
+                    )
+                  ]),
+            ),
           ),
         ),
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:happly/src/models/content.dart';
 import 'package:happly/src/screens/private/Ingredients_screen.dart';
+import 'package:happly/src/screens/private/home_screen.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../data/data.dart';
@@ -63,84 +64,95 @@ class _ReicipeScreenState extends State<ReicipeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: CustomAppbar(
-          title: 'Reicipe',
-          leading: IconButton(
-              onPressed: () => widget.onItemtap(0),
-              icon: const Icon(Icons.arrow_back_ios_new_outlined)),
-        ),
-        body: SingleChildScrollView(
-            child: SafeArea(
-                child: Padding(
-          padding: const EdgeInsets.only(right: 15.0, left: 15),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 530,
-                width: double.infinity,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10.0),
-                      child: Text(
-                        'All reicipe',
-                        style: GoogleFonts.lato(
-                            color: tipo,
-                            fontSize: 30,
-                            fontWeight: FontWeight.w900),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    SearchBar(
-                      backgroundColor:
-                          MaterialStatePropertyAll(backgroundColor2),
-                      hintText: 'Search reicipe',
-                      textStyle: MaterialStatePropertyAll(
-                          GoogleFonts.lato(color: Colors.grey, fontSize: 15)),
-                      leading: const Icon(Icons.search_outlined),
-                    ),
-                    Row(
-                      children: [
-                        ActionBar(
-                          index: 0,
-                          title: 'By origines',
-                          colors: colorbar,
-                          onItemtap: _onItemTapped,
-                        ),
-                        ActionBar(
-                          index: 1,
-                          title: 'By field',
-                          colors: colorbar,
-                          onItemtap: _onItemTapped,
-                        ),
-                      ],
-                    ),
-                    ReicipeListWidget(reicipes: myReicipe)
-                  ],
-                ),
-              ),
-              GestureDetector(
-                onTap: () => createReicipe(),
-                child: Container(
-                  alignment: Alignment.center,
-                  height: 50,
+    return Dismissible(
+      key: const Key('value'),
+      resizeDuration: const Duration(milliseconds: 1),
+      background: const HomeScreen(),
+      direction: DismissDirection.startToEnd,
+      onDismissed: (direction) {
+        if (direction == DismissDirection.startToEnd) {
+          widget.onItemtap(0);
+        }
+      },
+      child: Scaffold(
+          appBar: CustomAppbar(
+            title: 'Reicipe',
+            leading: IconButton(
+                onPressed: () => widget.onItemtap(0),
+                icon: const Icon(Icons.arrow_back_ios_new_outlined)),
+          ),
+          body: SingleChildScrollView(
+              child: SafeArea(
+                  child: Padding(
+            padding: const EdgeInsets.only(right: 15.0, left: 15),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 530,
                   width: double.infinity,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(22),
-                      color: primaryColor),
-                  child: Text(
-                    'Create new reicipe',
-                    style: GoogleFonts.lato(color: backgroundColor),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        child: Text(
+                          'All reicipe',
+                          style: GoogleFonts.lato(
+                              color: tipo,
+                              fontSize: 30,
+                              fontWeight: FontWeight.w900),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      SearchBar(
+                        backgroundColor:
+                            MaterialStatePropertyAll(backgroundColor2),
+                        hintText: 'Search reicipe',
+                        textStyle: MaterialStatePropertyAll(
+                            GoogleFonts.lato(color: Colors.grey, fontSize: 15)),
+                        leading: const Icon(Icons.search_outlined),
+                      ),
+                      Row(
+                        children: [
+                          ActionBar(
+                            index: 0,
+                            title: 'By origines',
+                            colors: colorbar,
+                            onItemtap: _onItemTapped,
+                          ),
+                          ActionBar(
+                            index: 1,
+                            title: 'By field',
+                            colors: colorbar,
+                            onItemtap: _onItemTapped,
+                          ),
+                        ],
+                      ),
+                      ReicipeListWidget(reicipes: myReicipe)
+                    ],
                   ),
                 ),
-              )
-            ],
-          ),
-        ))));
+                GestureDetector(
+                  onTap: () => createReicipe(),
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: 50,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(22),
+                        color: primaryColor),
+                    child: Text(
+                      'Create new reicipe',
+                      style: GoogleFonts.lato(color: backgroundColor),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          )))),
+    );
   }
 }
 
@@ -453,8 +465,8 @@ class _AddReicipeWidgetState extends State<AddReicipeWidget> {
                       ),
                       TextButton(
                           onPressed: () => setState(() {
-                                myIngredients.add(newIgredient);
-                                newReicipe.ingredients.add(newIgredient);
+                                ingredientsKnown.add(newIgredient.copy());
+                                newReicipe.ingredients.add(newIgredient.copy());
                                 Navigator.of(context).pop();
                               }),
                           child: Text(
@@ -483,313 +495,369 @@ class _AddReicipeWidgetState extends State<AddReicipeWidget> {
                       leading: BackButton(
                     onPressed: () => Navigator.pop(context),
                   )),
-                  body: SafeArea(
-                      child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          onChanged: (String title) => setState(() {
-                            newReicipe.title = title;
-                          }),
-                          decoration: InputDecoration(
-                            label: Text(
-                              'name',
-                              style: GoogleFonts.lato(
-                                  color: tipo,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                        ),
-                        TextFormField(
-                          onChanged: (String cost) => setState(() {
-                            newReicipe.cost = cost;
-                          }),
-                          decoration: InputDecoration(
-                            label: Text(
-                              'cost',
-                              style: GoogleFonts.lato(
-                                  color: tipo,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                          keyboardType: TextInputType.number,
-                        ),
-                        TextFormField(
-                          onChanged: (String calories) => setState(() {
-                            newReicipe.calories = calories;
-                          }),
-                          decoration: InputDecoration(
-                            label: Text(
-                              'calories',
-                              style: GoogleFonts.lato(
-                                  color: tipo,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                          keyboardType: TextInputType.number,
-                        ),
-                        TextFormField(
-                          onChanged: (String calories) => setState(() {
-                            newReicipe.time = calories;
-                          }),
-                          decoration: InputDecoration(
-                            label: Text(
-                              'Preparetion time',
-                              style: GoogleFonts.lato(
-                                  color: tipo,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                          keyboardType: TextInputType.datetime,
-                        ),
-                        TextFormField(
-                          onChanged: (String calories) => setState(() {
-                            newReicipe.reicipe = calories;
-                          }),
-                          decoration: InputDecoration(
-                            label: Text(
-                              'Reicipe',
-                              style: GoogleFonts.lato(
-                                  color: tipo,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                Navigator.pop(context);
-                              });
-                            },
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: 40,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  color: primaryColor,
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Text(
-                                'Submit',
-                                style: GoogleFonts.lato(color: backgroundColor),
+                  body: SingleChildScrollView(
+                    child: SafeArea(
+                        child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            initialValue: newReicipe.title,
+                            onChanged: (String title) => setState(() {
+                              newReicipe.title = title;
+                            }),
+                            decoration: InputDecoration(
+                              label: Text(
+                                'name',
+                                style: GoogleFonts.lato(
+                                    color: tipo,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500),
                               ),
-                            ))
-                      ],
-                    ),
-                  )),
+                            ),
+                          ),
+                          TextFormField(
+                            initialValue: newReicipe.cost,
+                            onChanged: (String cost) => setState(() {
+                              newReicipe.cost = cost;
+                            }),
+                            decoration: InputDecoration(
+                              label: Text(
+                                'Cost',
+                                style: GoogleFonts.lato(
+                                    color: tipo,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                            keyboardType: TextInputType.number,
+                          ),
+                          TextFormField(
+                            initialValue: newReicipe.calories,
+                            onChanged: (String calories) => setState(() {
+                              newReicipe.calories = calories;
+                            }),
+                            decoration: InputDecoration(
+                              label: Text(
+                                'Calories',
+                                style: GoogleFonts.lato(
+                                    color: tipo,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                            keyboardType: TextInputType.number,
+                          ),
+                          TextFormField(
+                            initialValue: newReicipe.glucides,
+                            onChanged: (String glucides) => setState(() {
+                              newReicipe.glucides = glucides;
+                            }),
+                            decoration: InputDecoration(
+                              label: Text(
+                                'Glucides',
+                                style: GoogleFonts.lato(
+                                    color: tipo,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                            keyboardType: TextInputType.number,
+                          ),
+                          TextFormField(
+                            initialValue: newReicipe.lipides,
+                            onChanged: (String lipides) => setState(() {
+                              newReicipe.lipides = lipides;
+                            }),
+                            decoration: InputDecoration(
+                              label: Text(
+                                'Lipides',
+                                style: GoogleFonts.lato(
+                                    color: tipo,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                            keyboardType: TextInputType.number,
+                          ),
+                          TextFormField(
+                            initialValue: newReicipe.proteines,
+                            onChanged: (String proteines) => setState(() {
+                              newReicipe.proteines = proteines;
+                            }),
+                            decoration: InputDecoration(
+                              label: Text(
+                                'Proteines',
+                                style: GoogleFonts.lato(
+                                    color: tipo,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                            keyboardType: TextInputType.number,
+                          ),
+                          TextFormField(
+                            initialValue: newReicipe.time,
+                            onChanged: (String calories) => setState(() {
+                              newReicipe.time = calories;
+                            }),
+                            decoration: InputDecoration(
+                              label: Text(
+                                'Preparetion time',
+                                style: GoogleFonts.lato(
+                                    color: tipo,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                            keyboardType: TextInputType.datetime,
+                          ),
+                          TextFormField(
+                            initialValue: newReicipe.reicipe,
+                            onChanged: (String calories) => setState(() {
+                              newReicipe.reicipe = calories;
+                            }),
+                            decoration: InputDecoration(
+                              label: Text(
+                                'Reicipe',
+                                style: GoogleFonts.lato(
+                                    color: tipo,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                        ],
+                      ),
+                    )),
+                  ),
                 ),
               );
             });
       });
     }
 
-    return Scaffold(
-      appBar: CustomAppbar(
-        leading: CloseButton(
-          onPressed: () => Navigator.pop(context),
-        ),
-        titleWidget: Text(newReicipe.title,
-            style: GoogleFonts.lato(
-                fontSize: 17, fontWeight: FontWeight.w700, color: tipo)),
+    return Dismissible(
+      key: const Key('value'),
+      resizeDuration: const Duration(milliseconds: 1),
+      background: ReicipeScreen(
+        onItemtap: (index) => setState(() {}),
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Stack(children: [
-                  SizedBox(
-                    height: 275,
+      direction: DismissDirection.startToEnd,
+      onDismissed: (direction) {
+        if (direction == DismissDirection.startToEnd) {
+          Navigator.pop(context);
+        }
+      },
+      child: Scaffold(
+        extendBody: true,
+        extendBodyBehindAppBar: true,
+        appBar: CustomAppbar(
+          leading: CloseButton(
+            onPressed: () => Navigator.pop(context),
+          ),
+          titleWidget: Text(newReicipe.title,
+              style: GoogleFonts.lato(
+                  fontSize: 17, fontWeight: FontWeight.w700, color: tipo)),
+        ),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Stack(children: [
+                    SizedBox(
+                      height: 275,
+                      width: double.infinity,
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: FittedBox(
+                              fit: BoxFit.cover,
+                              child: newReicipe.reicipeImage == ""
+                                  ? IconButton(
+                                      icon: const Icon(Icons.image),
+                                      onPressed: () async {
+                                        final imagePicker = ImagePicker();
+                                        final image =
+                                            await imagePicker.pickImage(
+                                                source: ImageSource.gallery);
+                                        if (image != null) {
+                                          newReicipe.reicipeImage = image.path;
+                                        }
+                                      })
+                                  : Image.asset(newReicipe.reicipeImage))),
+                    ),
+                    Positioned(
+                        right: 0,
+                        bottom: 0,
+                        child: GestureDetector(
+                          onTap: () => changeParam(),
+                          child: CircleAvatar(
+                            radius: 22,
+                            backgroundColor: primaryColor,
+                            child: const Icon(Icons.menu),
+                          ),
+                        ))
+                  ]),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10.0, horizontal: 8),
+                  child: SizedBox(
+                    height: 285,
                     width: double.infinity,
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: FittedBox(
-                            fit: BoxFit.cover,
-                            child: newReicipe.reicipeImage == ""
-                                ? IconButton(
-                                    icon: const Icon(Icons.image),
-                                    onPressed: () async {
-                                      final imagePicker = ImagePicker();
-                                      final image = await imagePicker.pickImage(
-                                          source: ImageSource.gallery);
-                                      if (image != null) {
-                                        newReicipe.reicipeImage = image.path;
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: newReicipe.ingredients.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                final IngredientContent ingredient =
+                                    newReicipe.ingredients[index];
+                                return Stack(children: [
+                                  Dismissible(
+                                    key: Key(ingredient.name),
+                                    background: Container(
+                                      color: negative,
+                                      alignment: Alignment.centerRight,
+                                      padding: const EdgeInsets.only(right: 16),
+                                      child: const Icon(Icons.delete),
+                                    ),
+                                    onDismissed: (direction) {
+                                      if (direction ==
+                                          DismissDirection.endToStart) {
+                                        setState(() {
+                                          newReicipe.ingredients
+                                              .removeAt(index);
+                                        });
                                       }
-                                    })
-                                : Image.asset(newReicipe.reicipeImage))),
-                  ),
-                  Positioned(
-                      right: 0,
-                      bottom: 0,
-                      child: GestureDetector(
-                        onTap: () => changeParam(),
-                        child: CircleAvatar(
-                          radius: 22,
-                          backgroundColor: primaryColor,
-                          child: const Icon(Icons.menu),
-                        ),
-                      ))
-                ]),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10.0, horizontal: 8),
-                child: SizedBox(
-                  height: 285,
-                  width: double.infinity,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: newReicipe.ingredients.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              final IngredientContent ingredient =
-                                  newReicipe.ingredients[index];
-                              return Stack(children: [
-                                Dismissible(
-                                  key: Key(ingredient.name),
-                                  background: Container(
-                                    color: negative,
-                                    alignment: Alignment.centerRight,
-                                    padding: const EdgeInsets.only(right: 16),
-                                    child: const Icon(Icons.delete),
-                                  ),
-                                  onDismissed: (direction) {
-                                    if (direction ==
-                                        DismissDirection.endToStart) {
-                                      setState(() {
-                                        newReicipe.ingredients.removeAt(index);
-                                      });
-                                    }
-                                  },
-                                  child: Container(
-                                    height: 60,
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(50)),
-                                      color: backgroundColor2,
+                                    },
+                                    child: Container(
+                                      height: 60,
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(50)),
+                                        color: backgroundColor2,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Positioned(
-                                    top: 12,
-                                    left: 20,
-                                    child: CircleAvatar(
-                                      radius: 20,
-                                      backgroundColor: backgroundColor2,
-                                      child: Image.asset(
-                                          ingredient.ingredientImage),
-                                    )),
-                                Positioned(
-                                  top: 15,
-                                  left: 80,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        ingredient.name,
-                                        style: GoogleFonts.lato(
-                                            color: tipo,
-                                            fontWeight: FontWeight.w800,
-                                            fontSize: 15),
-                                      ),
-                                      Text(
-                                        '${ingredient.number} ${ingredient.typeNumber}',
-                                        style: GoogleFonts.lato(
-                                            color: tipo,
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 12),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Positioned(
-                                    bottom: 20,
-                                    right: 0,
-                                    child: Row(
+                                  Positioned(
+                                      top: 12,
+                                      left: 20,
+                                      child: CircleAvatar(
+                                        radius: 20,
+                                        backgroundColor: backgroundColor2,
+                                        child: Image.asset(
+                                            ingredient.ingredientImage),
+                                      )),
+                                  Positioned(
+                                    top: 15,
+                                    left: 80,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          '${ingredient.cal} kcal',
+                                          ingredient.name,
                                           style: GoogleFonts.lato(
-                                              fontSize: 15, color: Colors.grey),
+                                              color: tipo,
+                                              fontWeight: FontWeight.w800,
+                                              fontSize: 15),
                                         ),
-                                        const Icon(
-                                          Icons.arrow_forward_ios_outlined,
-                                          color: Colors.grey,
-                                          size: 20,
+                                        Text(
+                                          '${ingredient.number} ${ingredient.typeNumber}',
+                                          style: GoogleFonts.lato(
+                                              color: tipo,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 12),
                                         ),
                                       ],
-                                    )),
-                                Positioned(
-                                  bottom: 0,
-                                  child: Container(
-                                    height: 2,
-                                    width: 500,
-                                    color: Colors.grey,
+                                    ),
                                   ),
-                                )
-                              ]);
-                            }),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        GestureDetector(
-                          onTap: () => addItem(),
-                          child: Container(
-                            alignment: Alignment.center,
-                            height: 50,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(22),
-                                color: primaryColor),
-                            child: Icon(
-                              Icons.add,
-                              color: backgroundColor,
+                                  Positioned(
+                                      bottom: 20,
+                                      right: 0,
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            '${ingredient.cal} kcal',
+                                            style: GoogleFonts.lato(
+                                                fontSize: 15,
+                                                color: Colors.grey),
+                                          ),
+                                          const Icon(
+                                            Icons.arrow_forward_ios_outlined,
+                                            color: Colors.grey,
+                                            size: 20,
+                                          ),
+                                        ],
+                                      )),
+                                  Positioned(
+                                    bottom: 0,
+                                    child: Container(
+                                      height: 2,
+                                      width: 500,
+                                      color: Colors.grey,
+                                    ),
+                                  )
+                                ]);
+                              }),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          GestureDetector(
+                            onTap: () => addItem(),
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: 50,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(22),
+                                  color: primaryColor),
+                              child: Icon(
+                                Icons.add,
+                                color: backgroundColor,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.only(bottom: 10.0, right: 10, left: 10),
-                child: GestureDetector(
-                  onTap: () => setState(() {
-                    Navigator.pop(context);
-                    myReicipe.add(newReicipe);
-                  }),
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: 50,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(22),
-                        color: primaryColor),
-                    child: Text(
-                      'Submit',
-                      style: GoogleFonts.lato(color: backgroundColor),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(bottom: 10.0, right: 10, left: 10),
+                  child: GestureDetector(
+                    onTap: () => setState(() {
+                      Navigator.pop(context);
+                      myReicipe.add(newReicipe);
+                    }),
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: 50,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(22),
+                          color: primaryColor),
+                      child: Text(
+                        'Submit',
+                        style: GoogleFonts.lato(color: backgroundColor),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

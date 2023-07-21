@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:happly/src/models/content.dart';
 
-List<IngredientContent> fruits_data = [
+final List<IngredientContent> fruits_data = [
   IngredientContent(
       type: IngredientType.fruit,
       name: 'oignon',
@@ -17,7 +17,7 @@ List<IngredientContent> fruits_data = [
       cal: 1000,
       expirationDate: DateTime(2023, 7, 30)),
 ];
-List<IngredientContent> vegetables_data = [
+final List<IngredientContent> vegetables_data = [
   IngredientContent(
       type: IngredientType.vegetable,
       name: 'tomato',
@@ -26,7 +26,7 @@ List<IngredientContent> vegetables_data = [
       cal: 500,
       expirationDate: DateTime(2023, 7, 15)),
 ];
-List<IngredientContent> Meal_data = [
+final List<IngredientContent> Meal_data = [
   IngredientContent(
       type: IngredientType.meal,
       name: 'Beaf',
@@ -72,20 +72,70 @@ ReicipeContent pasta = ReicipeContent(
     title: 'Pates à la carbonnara',
     cost: '10',
     calories: '500',
+    lipides: '27',
+    glucides: '60',
+    proteines: '30',
     reicipeImage: "lib/img/Pates-a-la-carbonara-2-500x500.webp",
     ingredients: feculent_data);
 ReicipeContent pasta2 = ReicipeContent(
     time: '10 - 15 min',
     title: 'Reicipe',
     cost: '50',
-    calories: '500',
+    calories: '250',
+    lipides: '60',
+    glucides: '27',
+    proteines: '59',
     reicipeImage: 'lib/img/Pates-a-la-carbonara-2-500x500.webp',
-    ingredients: Meal_data);
+    ingredients: [Meal_data[0].copy()]);
 
 List<ShopListContent> recommandationShopList = [];
 List<ShopListContent> myShopList = [];
 List<IngredientContent> myIngredients =
     fruits_data + Meal_data + feculent_data + vegetables_data;
+List<IngredientContent> ingredientsKnown = [
+      IngredientContent(
+          type: IngredientType.fruit,
+          name: 'oignon',
+          ingredientImage: "lib/img/Oignon-de-garde.png",
+          number: 1,
+          cal: 2000,
+          expirationDate: DateTime(2023, 7, 19)),
+      IngredientContent(
+          type: IngredientType.fruit,
+          name: 'Fraise',
+          ingredientImage: "lib/img/Oignon-de-garde.png",
+          number: 1,
+          cal: 1000,
+          expirationDate: DateTime(2023, 7, 30)),
+    ] +
+    [
+      IngredientContent(
+          type: IngredientType.meal,
+          name: 'Beaf',
+          ingredientImage: "lib/img/Oignon-de-garde.png",
+          number: 1,
+          cal: 1000,
+          expirationDate: DateTime(2023, 7, 30),
+          typeNumber: 'piece'),
+    ] +
+    [
+      IngredientContent(
+          type: IngredientType.feculent,
+          name: 'Pasta',
+          ingredientImage: "lib/img/Oignon-de-garde.png",
+          number: 1,
+          cal: 800,
+          expirationDate: DateTime(2023, 8, 30)),
+    ] +
+    [
+      IngredientContent(
+          type: IngredientType.vegetable,
+          name: 'tomato',
+          ingredientImage: "lib/img/Oignon-de-garde.png",
+          number: 1,
+          cal: 500,
+          expirationDate: DateTime(2023, 7, 15))
+    ];
 List<IngredientContent> expiredIngredients = myIngredients
     .where((element) =>
         element.expirationDate.difference(DateTime.now()).inDays <= 0)

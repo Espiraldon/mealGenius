@@ -34,6 +34,7 @@ class _DailyScreenState extends State<DailyScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Widget? back = _widgetOption[_selectindex];
     return Scaffold(
       extendBody: true,
       extendBodyBehindAppBar: true,
@@ -49,10 +50,26 @@ class _DailyScreenState extends State<DailyScreen> {
           onPressed: () => onItemTapped((_selectindex + 1) % 3),
         ),
       ),
-      body: Center(
-        child: Container(
-          child: _widgetOption[_selectindex],
-        ),
+      body: Scaffold(
+        body: Dismissible(
+            resizeDuration: const Duration(milliseconds: 1),
+            key: Key('$_selectindex'),
+            onDismissed: (direction) {
+              if (direction == DismissDirection.startToEnd) {
+                setState(() {
+                  _selectindex = (_selectindex - 1) % 3;
+                  _pagetitle = _pagetitles[_selectindex];
+                });
+              } else if (direction == DismissDirection.endToStart) {
+                setState(() {
+                  _selectindex = (_selectindex + 1) % 3;
+                  _pagetitle = _pagetitles[_selectindex];
+                });
+              }
+            },
+            background: _widgetOption[(_selectindex - 1) % 3],
+            secondaryBackground: _widgetOption[(_selectindex + 1) % 3],
+            child: _widgetOption[_selectindex]),
       ),
     );
   }

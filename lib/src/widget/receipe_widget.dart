@@ -14,6 +14,35 @@ class ReceipeWidget extends StatefulWidget {
 }
 
 class _ReceipeWidgetState extends State<ReceipeWidget> {
+  void ontap() {
+    setState(() {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              titlePadding: const EdgeInsets.only(left: 50, top: 10),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              title: Text(
+                'Reicipe',
+                style:
+                    GoogleFonts.lato(color: tipo, fontWeight: FontWeight.w700),
+              ),
+              content: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Text(
+                      widget.reicipe.reicipe,
+                      style: GoogleFonts.lato(color: tipo),
+                    )
+                  ],
+                ),
+              ),
+            );
+          });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -31,12 +60,33 @@ class _ReceipeWidgetState extends State<ReceipeWidget> {
                         child: Image.asset(widget.reicipe.reicipeImage))),
               ),
               Positioned(
+                  left: 0,
+                  bottom: 0,
+                  child: GestureDetector(
+                    onTap: () => ontap(),
+                    child: CircleAvatar(
+                      radius: 22,
+                      backgroundColor: primaryColor,
+                      child: const Icon(Icons.menu),
+                    ),
+                  )),
+              Positioned(
                   right: 0,
                   bottom: 0,
-                  child: CircleAvatar(
-                    radius: 22,
-                    backgroundColor: primaryColor,
-                    child: const Icon(Icons.menu),
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: 20,
+                    width: 90,
+                    decoration: BoxDecoration(
+                        color: backgroundColor,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(15))),
+                    child: Text(
+                      widget.reicipe.time,
+                      style: GoogleFonts.lato(
+                        color: tipo,
+                      ),
+                    ),
                   ))
             ],
           ),
@@ -51,15 +101,28 @@ class _ReceipeWidgetState extends State<ReceipeWidget> {
                       borderRadius: BorderRadius.circular(15),
                       color: primaryColor),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 17.0, horizontal: 20),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 17.0, horizontal: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _Information(name: 'Calories', number: 271, type: 'kcal'),
-                      _Information(name: 'Glucides', number: 45.2, type: 'g'),
-                      _Information(name: 'Proteines', number: 8.1, type: 'g'),
-                      _Information(name: 'Lipides', number: 4.6, type: 'g')
+                      _Information(
+                          name: 'Calories',
+                          number: double.parse(widget.reicipe.calories),
+                          type: 'kcal'),
+                      _Information(
+                          name: 'Glucides',
+                          number: double.parse(widget.reicipe.glucides),
+                          type: 'g'),
+                      _Information(
+                          name: 'Proteines',
+                          number: double.parse(widget.reicipe.proteines),
+                          type: 'g'),
+                      _Information(
+                          name: 'Lipides',
+                          number: double.parse(widget.reicipe.lipides),
+                          type: 'g')
                     ],
                   ),
                 ),

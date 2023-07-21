@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:happly/src/models/content.dart';
@@ -17,7 +16,7 @@ class ShopListPageWidget extends StatefulWidget {
 }
 
 class _ShopListPageWidgetState extends State<ShopListPageWidget> {
-  String? selectedOption = myIngredients[0].name;
+  String? selectedOption = ingredientsKnown[0].name;
   void _addIngredients() {
     setState(() {
       showDialog(
@@ -42,7 +41,7 @@ class _ShopListPageWidgetState extends State<ShopListPageWidget> {
                     onChanged: (String? newValue) => setState(() {
                       selectedOption = newValue;
                     }),
-                    items: myIngredients.map((IngredientContent ingredient) {
+                    items: ingredientsKnown.map((IngredientContent ingredient) {
                       return DropdownMenuItem<String>(
                         value: ingredient.name,
                         child: Text(
@@ -63,9 +62,10 @@ class _ShopListPageWidgetState extends State<ShopListPageWidget> {
                                       (element) =>
                                           element.name == selectedOption)]
                                   .number++
-                              : widget.list.product.add(
-                                  myIngredients.firstWhere((element) =>
-                                      element.name == selectedOption));
+                              : widget.list.product.add(ingredientsKnown
+                                  .firstWhere((element) =>
+                                      element.name == selectedOption)
+                                  .copy());
                         });
                         Navigator.pop(context);
                       },
@@ -301,7 +301,7 @@ class _IngredientsListsbyTypeState extends State<IngredientsListsbyType> {
             builder: (BuildContext context) {
               int num = 0;
               return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 200.0),
+                padding: const EdgeInsets.symmetric(vertical: 100.0),
                 child: AlertDialog(
                   contentPadding: EdgeInsets.all(5),
                   shape: RoundedRectangleBorder(
@@ -311,24 +311,26 @@ class _IngredientsListsbyTypeState extends State<IngredientsListsbyType> {
                     style: GoogleFonts.lato(
                         color: tipo, fontWeight: FontWeight.w900, fontSize: 25),
                   ),
-                  content: Column(
-                    children: [
-                      TextFormField(
-                        onChanged: (value) => num = int.parse(value),
-                        keyboardType: TextInputType.number,
-                      ),
-                      TextButton(
-                          onPressed: () => setState(() {
-                                Navigator.pop(context);
-                                widget.ingredients[widget.index].number = num;
-                              }),
-                          child: Text(
-                            'Submit',
-                            style: GoogleFonts.lato(
-                              color: positive,
-                            ),
-                          ))
-                    ],
+                  content: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          onChanged: (value) => num = int.parse(value),
+                          keyboardType: TextInputType.number,
+                        ),
+                        TextButton(
+                            onPressed: () => setState(() {
+                                  Navigator.pop(context);
+                                  widget.ingredients[widget.index].number = num;
+                                }),
+                            child: Text(
+                              'Submit',
+                              style: GoogleFonts.lato(
+                                color: positive,
+                              ),
+                            ))
+                      ],
+                    ),
                   ),
                 ),
               );

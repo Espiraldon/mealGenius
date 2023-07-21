@@ -8,7 +8,6 @@ import 'package:happly/src/screens/private/shoplist_screen.dart';
 import 'package:happly/src/widget/dashboard_containers.dart';
 import 'package:happly/src/widget/custom_appbar.dart';
 
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -70,6 +69,10 @@ class Firstscreen extends StatefulWidget {
 class _FirstscreenState extends State<Firstscreen> {
   @override
   Widget build(BuildContext context) {
+    expiredIngredients = myIngredients
+        .where((element) =>
+            element.expirationDate.difference(DateTime.now()).inDays <= 0)
+        .toList();
     return Scaffold(
       backgroundColor: backgroundColor,
       extendBody: true,

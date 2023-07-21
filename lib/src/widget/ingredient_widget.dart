@@ -176,17 +176,19 @@ class _IngredientsWidgetState extends State<IngredientsWidget> {
                   actions: [
                     FloatingActionButton(
                       onPressed: () => Navigator.of(context).pop(),
+                      backgroundColor: primaryColor,
                       child: Icon(
                         Icons.close,
                         size: 20,
                         color: tipo,
                       ),
-                      backgroundColor: primaryColor,
                     ),
                     TextButton(
                         onPressed: () => setState(() {
-                              myIngredients.add(newIgredient);
-                              widget.ingredientItems!.add(newIgredient);
+                              myIngredients.add(newIgredient.copy());
+                              ingredientsKnown.add(newIgredient.copy());
+                              widget.ingredientItems!.add(newIgredient.copy());
+
                               Navigator.of(context).pop();
                             }),
                         child: Text(
@@ -227,7 +229,7 @@ class _IngredientsWidgetState extends State<IngredientsWidget> {
                     background: Container(
                       color: negative,
                       alignment: Alignment.bottomCenter,
-                      padding: EdgeInsets.only(bottom: 40),
+                      padding: const EdgeInsets.only(bottom: 40),
                       child: Icon(
                         Icons.delete,
                         color: tipo,
@@ -242,7 +244,7 @@ class _IngredientsWidgetState extends State<IngredientsWidget> {
                       }
                     },
                     child: Container(
-                      height: 400,
+                      height: 430,
                       width: 300,
                       decoration: BoxDecoration(
                           borderRadius:

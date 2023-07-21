@@ -43,25 +43,51 @@ class IngredientContent {
     this.typeNumber = 'pieces',
     required this.expirationDate,
   });
+  IngredientContent copy() {
+    return IngredientContent(
+        type: type,
+        name: name,
+        expirationDate: expirationDate,
+        cal: cal,
+        ingredientImage: ingredientImage,
+        number: number,
+        typeNumber: typeNumber);
+  }
 }
 
 class ReicipeContent {
   String title;
   String cost;
   String calories;
+  String glucides;
+  String proteines;
+  String lipides;
   String time;
   String reicipe;
   String reicipeImage;
   List<IngredientContent> ingredients;
   ReicipeContent({
-    this.reicipe='',
+    this.reicipe = '',
     required this.ingredients,
     this.time = '20 : 00 min',
     this.reicipeImage = '',
     this.calories = '0',
+    this.glucides = '0',
+    this.lipides = '0',
+    this.proteines = '0',
     this.cost = '0',
     this.title = 'New reicipe',
   });
+  ReicipeContent copy() {
+    return ReicipeContent(
+        ingredients: ingredients,
+        reicipe: reicipe,
+        reicipeImage: reicipeImage,
+        time: time,
+        calories: calories,
+        cost: cost,
+        title: title);
+  }
 }
 
 class ProfileContent {

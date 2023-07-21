@@ -7,6 +7,8 @@ import 'package:happly/src/models/content.dart';
 import 'package:happly/src/widget/custom_appbar.dart';
 import 'package:happly/src/widget/ingredient_widget.dart';
 
+import 'home_screen.dart';
+
 class IngredientsManageScreeen extends StatefulWidget {
   final Function(int) onItemtap;
   const IngredientsManageScreeen({required this.onItemtap, super.key});
@@ -40,9 +42,27 @@ class _IngredientsManageScreeenState extends State<IngredientsManageScreeen> {
           .where((element) => element.type == IngredientType.feculent)
           .toList(),
     ),
+    IngredientsWidget(
+      ingredientItems: myIngredients
+          .where((element) => element.type == IngredientType.salsa)
+          .toList(),
+    ),
+    IngredientsWidget(
+      ingredientItems: myIngredients
+          .where((element) => element.type == IngredientType.dairyProducts)
+          .toList(),
+    ),
+    IngredientsWidget(
+      ingredientItems: myIngredients
+          .where((element) => element.type == IngredientType.other)
+          .toList(),
+    ),
   ];
   List<Color> colorbar = [
     tipo,
+    Colors.grey,
+    Colors.grey,
+    Colors.grey,
     Colors.grey,
     Colors.grey,
     Colors.grey,
@@ -58,11 +78,17 @@ class _IngredientsManageScreeenState extends State<IngredientsManageScreeen> {
           Colors.grey,
           Colors.grey,
           Colors.grey,
+          Colors.grey,
+          Colors.grey,
+          Colors.grey,
         ];
       } else if (index == 1) {
         colorbar = [
           Colors.grey,
           tipo,
+          Colors.grey,
+          Colors.grey,
+          Colors.grey,
           Colors.grey,
           Colors.grey,
         ];
@@ -72,9 +98,45 @@ class _IngredientsManageScreeenState extends State<IngredientsManageScreeen> {
           Colors.grey,
           tipo,
           Colors.grey,
+          Colors.grey,
+          Colors.grey,
+          Colors.grey,
         ];
       } else if (index == 3) {
         colorbar = [
+          Colors.grey,
+          Colors.grey,
+          Colors.grey,
+          tipo,
+          Colors.grey,
+          Colors.grey,
+          Colors.grey,
+        ];
+      } else if (index == 4) {
+        colorbar = [
+          Colors.grey,
+          Colors.grey,
+          Colors.grey,
+          Colors.grey,
+          tipo,
+          Colors.grey,
+          Colors.grey,
+        ];
+      } else if (index == 5) {
+        colorbar = [
+          Colors.grey,
+          Colors.grey,
+          Colors.grey,
+          Colors.grey,
+          Colors.grey,
+          tipo,
+          Colors.grey,
+        ];
+      } else if (index == 6) {
+        colorbar = [
+          Colors.grey,
+          Colors.grey,
+          Colors.grey,
           Colors.grey,
           Colors.grey,
           Colors.grey,
@@ -86,53 +148,62 @@ class _IngredientsManageScreeenState extends State<IngredientsManageScreeen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppbar(
-        title: 'Ingredients',
-        leading: IconButton(
-            onPressed: () => widget.onItemtap(0),
-            icon: const Icon(Icons.arrow_back_ios_new_outlined)),
-      ),
-      backgroundColor: backgroundColor,
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ActionBar(
-                    colors: colorbar,
-                    onItemtap: _onItemTapped,
-                    title: 'Fruits',
-                    index: 0,
+    List<String> listTitle = [
+      'fruit',
+      'vegetable',
+      'meal',
+      'feculent',
+      'salsa',
+      'dairyProducts',
+      'other'
+    ];
+    return Dismissible(
+      key: const Key('value'),
+      resizeDuration: const Duration(milliseconds: 1),
+      background: const HomeScreen(),
+      direction: DismissDirection.startToEnd,
+      onDismissed: (direction) {
+        if (direction == DismissDirection.startToEnd) {
+          widget.onItemtap(0);
+        }
+      },
+      child: Scaffold(
+        appBar: CustomAppbar(
+          title: 'Ingredients',
+          leading: IconButton(
+              onPressed: () => widget.onItemtap(0),
+              icon: const Icon(Icons.arrow_back_ios_new_outlined)),
+        ),
+        backgroundColor: backgroundColor,
+        body: SingleChildScrollView(
+          child: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 15.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        for (int i = 0; i < 7; i++)
+                          ActionBar(
+                              index: i,
+                              title: listTitle[i],
+                              colors: colorbar,
+                              onItemtap: _onItemTapped),
+                      ],
+                    ),
                   ),
-                  ActionBar(
-                    colors: colorbar,
-                    onItemtap: _onItemTapped,
-                    title: 'Vegetables',
-                    index: 1,
-                  ),
-                  ActionBar(
-                    colors: colorbar,
-                    onItemtap: _onItemTapped,
-                    title: 'Meal',
-                    index: 2,
-                  ),
-                  ActionBar(
-                    colors: colorbar,
-                    onItemtap: _onItemTapped,
-                    title: 'Feculent',
-                    index: 3,
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              widgetlist[_selectindex],
-            ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                widgetlist[_selectindex],
+              ],
+            ),
           ),
         ),
       ),
@@ -173,7 +244,8 @@ class _ActionBarState extends State<ActionBar> {
                 ? Container(
                     height: 30,
                     decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(20)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20)),
                         color: backgroundColor2),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
