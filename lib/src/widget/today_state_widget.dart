@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:happly/src/models/content.dart';
@@ -8,6 +9,7 @@ import '../data/data.dart';
 import 'package:food_icons/food_icons.dart';
 import '../widget/receipe_widget.dart';
 import 'daily_consume_widget.dart';
+import 'money_widget.dart';
 
 class Today extends StatefulWidget {
   const Today({super.key});
@@ -17,14 +19,37 @@ class Today extends StatefulWidget {
 }
 
 class _TodayState extends State<Today> {
+  late int _currentSlide;
   @override
   void initState() {
     super.initState();
     todayReicipe = weekday[currentday - 1];
+    _currentSlide = 0;
   }
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> carouselWidget = [
+      const DailyConsumeWidget(),
+      const DayMoneySpentWidget(),
+    ];
+    Widget buildIndicators() {
+      return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: carouselWidget.map((e) {
+            int index = carouselWidget.indexOf(e);
+            return Container(
+              width: 8.0,
+              height: 8,
+              margin: const EdgeInsets.symmetric(horizontal: 4),
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: _currentSlide == index ? tipo : backgroundColor,
+                  border: Border.all(color: tipo)),
+            );
+          }).toList());
+    }
+
     return SingleChildScrollView(
       child: SafeArea(
         child: Padding(
@@ -33,10 +58,39 @@ class _TodayState extends State<Today> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const DailyConsumeWidget(),
-                const MoneySpentWidget(),
+                CarouselSlider.builder(
+                    itemCount: carouselWidget.length,
+                    itemBuilder:
+                        (BuildContext context, int index, int realIndex) {
+                      return carouselWidget[index];
+                    },
+                    options: CarouselOptions(
+                      height: 250,
+                      aspectRatio: 16 / 9,
+                      enlargeCenterPage: true,
+                      viewportFraction: 0.95,
+                      autoPlay: false,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          _currentSlide = index;
+                        });
+                      },
+                    )),
+                const SizedBox(
+                  height: 20,
+                ),
+                buildIndicators(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: Text(
+                    'Menu',
+                    style: GoogleFonts.lato(
+                        fontSize: 25, fontWeight: FontWeight.w600),
+                  ),
+                ),
                 MenuWidget(
                   reicipe: todayReicipe,
+                  backgroundcolor: backgroundColor2,
                 ),
               ]),
         ),
@@ -47,7 +101,8 @@ class _TodayState extends State<Today> {
 
 class MenuWidget extends StatefulWidget {
   List<ReicipeContent>? reicipe;
-  MenuWidget({required this.reicipe, super.key});
+  Color backgroundcolor;
+  MenuWidget({required this.backgroundcolor, required this.reicipe, super.key});
 
   @override
   State<MenuWidget> createState() => _MenuWidgetState();
@@ -202,7 +257,7 @@ class _MenuWidgetState extends State<MenuWidget> {
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(20)),
-          color: backgroundColor,
+          color: widget.backgroundcolor,
         ),
         child: ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
@@ -216,7 +271,7 @@ class _MenuWidgetState extends State<MenuWidget> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(5)),
-                    color: backgroundColor2,
+                    color: widget.backgroundcolor,
                   ),
                 ),
                 Positioned(
@@ -283,128 +338,6 @@ class _MenuWidgetState extends State<MenuWidget> {
             );
           },
         ),
-      ),
-    );
-  }
-}
-
-class MoneySpentWidget extends StatefulWidget {
-  const MoneySpentWidget({super.key});
-
-  @override
-  State<MoneySpentWidget> createState() => _MoneySpentWidgetState();
-}
-
-class _MoneySpentWidgetState extends State<MoneySpentWidget> {
-  double sum(List<String> k) {
-    double sum = 0;
-    for (int i = 0; i < 3; i++) {
-      sum += double.parse(k[i]);
-    }
-    return sum;
-  }
-
-  late bool isCheaper;
-  @override
-  void initState() {
-    super.initState();
-    isCheaper = sum(todayReicipe!
-            .where((element) => element.cost.runtimeType == String)
-            .map((e) => e.cost)
-            .toList()) >
-        sum(weekday[currentday - 2]!
-            .where((element) => element.cost.runtimeType == String)
-            .map((e) => e.cost)
-            .toList());
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    bool priceCompare(double previous, double now) {
-      return previous > now;
-    }
-
-    return Padding(
-      padding: const EdgeInsets.only(top: 10.0),
-      child: Stack(
-        children: [
-          Container(
-            height: 250,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(25)),
-              color: primaryColor,
-            ),
-          ),
-          Positioned(
-              bottom: 20,
-              left: 25,
-              child: Stack(
-                children: [
-                  Container(
-                    height: 80,
-                    width: 310,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(25)),
-                      color: secondColor,
-                    ),
-                  ),
-                  Positioned(
-                    top: 15,
-                    left: 20,
-                    child: Text(
-                      'Today',
-                      style: GoogleFonts.lato(
-                          color: backgroundColor,
-                          fontSize: 17,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 10,
-                    left: 20,
-                    child: Row(
-                      children: [
-                        Text(
-                          '€${sum(todayReicipe!.where((element) => element.cost.runtimeType == String).map((e) => e.cost).toList())}',
-                          style: GoogleFonts.lato(
-                              color: backgroundColor,
-                              fontSize: 30,
-                              fontWeight: FontWeight.w800),
-                        ),
-                        Text(
-                          ' euro',
-                          style: GoogleFonts.lato(
-                              color: backgroundColor,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Positioned(
-                    right: 50,
-                    bottom: 30,
-                    child: Row(
-                      children: [
-                        Text(
-                          '${sum(todayReicipe!.where((element) => element.cost.runtimeType == String).map((e) => e.cost).toList()) / sum(weekday[currentday - 2]!.where((element) => element.cost.runtimeType == String).map((e) => e.cost).toList())}% ',
-                          style: GoogleFonts.lato(
-                              color: backgroundColor,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        isCheaper == true
-                            ? Image.asset('lib/img/increase.png',
-                                height: 25, width: 25)
-                            : Image.asset('lib/img/decrease.png',
-                                height: 25, width: 25)
-                      ],
-                    ),
-                  )
-                ],
-              ))
-        ],
       ),
     );
   }

@@ -18,10 +18,10 @@ class _MounthState extends State<Mounth> {
           padding: const EdgeInsets.only(right: 15.0, left: 15),
           child: Column(children: [
             Container(
-              height: 200,
+              height: 250,
               width: double.infinity,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
                 color: primaryColor,
               ),
             ),
@@ -31,7 +31,7 @@ class _MounthState extends State<Mounth> {
                 height: 350,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  borderRadius: const BorderRadius.all(Radius.circular(20)),
                   color: positive,
                 ),
               ),

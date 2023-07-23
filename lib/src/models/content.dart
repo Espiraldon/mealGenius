@@ -31,6 +31,7 @@ class IngredientContent {
   String ingredientImage;
   int number;
   int cal;
+  double cost;
   String typeNumber;
   DateTime expirationDate;
   IngredientType type;
@@ -40,6 +41,7 @@ class IngredientContent {
     this.ingredientImage = 'lib/img/Oignon-de-garde.png',
     this.number = 0,
     this.cal = 0,
+    this.cost = 0.0,
     this.typeNumber = 'pieces',
     required this.expirationDate,
   });

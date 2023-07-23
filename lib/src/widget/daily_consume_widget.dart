@@ -22,7 +22,7 @@ class _DailyConsumeWidgetState extends State<DailyConsumeWidget> {
     return Stack(
       children: [
         Container(
-          height: 200,
+          height: 250,
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(20)),
@@ -37,7 +37,7 @@ class _DailyConsumeWidgetState extends State<DailyConsumeWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    height: 75,
+                    height: 85,
                     width: 75,
                     decoration: BoxDecoration(
                         color: backgroundColor2, shape: BoxShape.circle),
@@ -59,8 +59,8 @@ class _DailyConsumeWidgetState extends State<DailyConsumeWidget> {
                     ),
                   ),
                   SizedBox(
-                      height: 90,
-                      width: 90,
+                      height: 100,
+                      width: 100,
                       child: Transform.rotate(
                         angle: -0.75 * 3.14,
                         child: CircularProgressIndicator(
@@ -77,8 +77,8 @@ class _DailyConsumeWidgetState extends State<DailyConsumeWidget> {
                         ),
                       )),
                   Container(
-                    height: 75,
-                    width: 75,
+                    height: 70,
+                    width: 70,
                     decoration: BoxDecoration(
                         color: backgroundColor2, shape: BoxShape.circle),
                     child: Center(
@@ -102,7 +102,7 @@ class _DailyConsumeWidgetState extends State<DailyConsumeWidget> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(20.0),
               child: Container(
                 height: 2,
                 width: double.infinity,

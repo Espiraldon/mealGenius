@@ -7,6 +7,9 @@ import 'package:happly/src/screens/private/reicipe_screen.dart';
 import 'package:happly/src/screens/private/shoplist_screen.dart';
 import 'package:happly/src/widget/dashboard_containers.dart';
 import 'package:happly/src/widget/custom_appbar.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:happly/src/widget/global_view_widget.dart';
+import 'package:happly/src/widget/money_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -67,12 +70,45 @@ class Firstscreen extends StatefulWidget {
 }
 
 class _FirstscreenState extends State<Firstscreen> {
+  late int _currentSlide;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _currentSlide = 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     expiredIngredients = myIngredients
         .where((element) =>
             element.expirationDate.difference(DateTime.now()).inDays <= 0)
         .toList();
+
+    List<Widget> carouselWidget = [
+      const GlobalViewWidget(),
+      const DayMoneySpentWidget(),
+      WeekMoneySpentWidget(
+        currentday: currentday - 1,
+      ),
+    ];
+    Widget buildIndicators() {
+      return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: carouselWidget.map((e) {
+            int index = carouselWidget.indexOf(e);
+            return Container(
+              width: 8.0,
+              height: 8,
+              margin: const EdgeInsets.symmetric(horizontal: 4),
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: _currentSlide == index ? tipo : backgroundColor,
+                  border: Border.all(color: tipo)),
+            );
+          }).toList());
+    }
+
     return Scaffold(
       backgroundColor: backgroundColor,
       extendBody: true,
@@ -93,6 +129,32 @@ class _FirstscreenState extends State<Firstscreen> {
                   hintText: 'What are you searching for ?',
                   backgroundColor: MaterialStatePropertyAll(backgroundColor2),
                 ),
+                const _titletext(
+                  title: 'Statistiques',
+                  isSubtitle: true,
+                ),
+                CarouselSlider.builder(
+                    itemCount: carouselWidget.length,
+                    itemBuilder:
+                        (BuildContext context, int index, int realIndex) {
+                      return carouselWidget[index];
+                    },
+                    options: CarouselOptions(
+                      height: 250,
+                      aspectRatio: 16 / 9,
+                      enlargeCenterPage: true,
+                      viewportFraction: 0.95,
+                      autoPlay: false,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          _currentSlide = index;
+                        });
+                      },
+                    )),
+                const SizedBox(
+                  height: 20,
+                ),
+                buildIndicators(),
                 const _titletext(
                   title: 'Meal Management',
                   isSubtitle: true,

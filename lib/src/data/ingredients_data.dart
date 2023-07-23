@@ -8,6 +8,7 @@ final List<IngredientContent> fruits_data = [
       ingredientImage: "lib/img/Oignon-de-garde.png",
       number: 1,
       cal: 2000,
+      cost: 1,
       expirationDate: DateTime(2023, 7, 19)),
   IngredientContent(
       type: IngredientType.fruit,
@@ -15,6 +16,7 @@ final List<IngredientContent> fruits_data = [
       ingredientImage: "lib/img/Oignon-de-garde.png",
       number: 1,
       cal: 1000,
+      cost: 5,
       expirationDate: DateTime(2023, 7, 30)),
 ];
 final List<IngredientContent> vegetables_data = [
@@ -24,6 +26,7 @@ final List<IngredientContent> vegetables_data = [
       ingredientImage: "lib/img/Oignon-de-garde.png",
       number: 1,
       cal: 500,
+      cost: 1,
       expirationDate: DateTime(2023, 7, 15)),
 ];
 final List<IngredientContent> Meal_data = [
@@ -33,6 +36,7 @@ final List<IngredientContent> Meal_data = [
       ingredientImage: "lib/img/Oignon-de-garde.png",
       number: 1,
       cal: 1000,
+      cost: 10,
       expirationDate: DateTime(2023, 7, 30),
       typeNumber: 'piece'),
 ];
@@ -43,6 +47,7 @@ List<IngredientContent> feculent_data = [
       ingredientImage: "lib/img/Oignon-de-garde.png",
       number: 1,
       cal: 800,
+      cost: 2,
       expirationDate: DateTime(2023, 8, 30)),
 ];
 List<ProfileContent> MyAccount = [
@@ -99,6 +104,7 @@ List<IngredientContent> ingredientsKnown = [
           ingredientImage: "lib/img/Oignon-de-garde.png",
           number: 1,
           cal: 2000,
+          cost: 1,
           expirationDate: DateTime(2023, 7, 19)),
       IngredientContent(
           type: IngredientType.fruit,
@@ -106,6 +112,7 @@ List<IngredientContent> ingredientsKnown = [
           ingredientImage: "lib/img/Oignon-de-garde.png",
           number: 1,
           cal: 1000,
+          cost: 5,
           expirationDate: DateTime(2023, 7, 30)),
     ] +
     [
@@ -115,6 +122,7 @@ List<IngredientContent> ingredientsKnown = [
           ingredientImage: "lib/img/Oignon-de-garde.png",
           number: 1,
           cal: 1000,
+          cost: 10,
           expirationDate: DateTime(2023, 7, 30),
           typeNumber: 'piece'),
     ] +
@@ -125,6 +133,7 @@ List<IngredientContent> ingredientsKnown = [
           ingredientImage: "lib/img/Oignon-de-garde.png",
           number: 1,
           cal: 800,
+          cost: 2,
           expirationDate: DateTime(2023, 8, 30)),
     ] +
     [
@@ -134,6 +143,7 @@ List<IngredientContent> ingredientsKnown = [
           ingredientImage: "lib/img/Oignon-de-garde.png",
           number: 1,
           cal: 500,
+          cost: 1,
           expirationDate: DateTime(2023, 7, 15))
     ];
 List<IngredientContent> expiredIngredients = myIngredients

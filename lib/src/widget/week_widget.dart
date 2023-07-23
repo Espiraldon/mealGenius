@@ -3,6 +3,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:happly/src/widget/money_widget.dart';
 import 'package:happly/src/widget/today_state_widget.dart';
 
 import '../data/data.dart';
@@ -22,40 +23,48 @@ class _WeekState extends State<Week> {
       DayperWeekWidget(
         day: 'Monday',
         reicipe: monday,
+        index: 0,
       ),
       DayperWeekWidget(
         day: 'Tuesday',
         reicipe: tuesday,
+        index: 1,
       ),
       DayperWeekWidget(
         day: 'Wenesday',
         reicipe: wenesday,
+        index: 2,
       ),
       DayperWeekWidget(
         day: 'Thirsday',
         reicipe: thirsday,
+        index: 3,
       ),
       DayperWeekWidget(
         day: 'Friday',
         reicipe: friday,
+        index: 4,
       ),
       DayperWeekWidget(
         day: 'Saturday',
         reicipe: saturday,
+        index: 5,
       ),
-      DayperWeekWidget(
-        day: 'Sunday',
-        reicipe: sunday,
-      ),
+      DayperWeekWidget(day: 'Sunday', reicipe: sunday, index: 6),
     ];
     return SafeArea(
-      child: CarouselSlider(
-        options: CarouselOptions(height: MediaQuery.of(context).size.height),
-        items: [0, 1, 2, 3, 4, 5, 6].map((e) {
-          return Builder(builder: (BuildContext context) {
-            return widgets[e];
-          });
-        }).toList(),
+      child: CarouselSlider.builder(
+        itemCount: widgets.length,
+        options: CarouselOptions(
+          height: 900,
+          aspectRatio: 16 / 9,
+          enlargeCenterPage: true,
+          viewportFraction: 0.95,
+          autoPlay: false,
+        ),
+        itemBuilder: (BuildContext context, int index, int realIndex) {
+          return widgets[index];
+        },
       ),
     );
   }
@@ -64,7 +73,12 @@ class _WeekState extends State<Week> {
 class DayperWeekWidget extends StatefulWidget {
   final String day;
   List<ReicipeContent>? reicipe;
-  DayperWeekWidget({required this.reicipe, required this.day, super.key});
+  int index;
+  DayperWeekWidget(
+      {required this.index,
+      required this.reicipe,
+      required this.day,
+      super.key});
 
   @override
   State<DayperWeekWidget> createState() => _DayperWeekWidgetState();
@@ -87,23 +101,36 @@ class _DayperWeekWidgetState extends State<DayperWeekWidget> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: Stack(
-            alignment: Alignment.bottomRight,
+            alignment: Alignment.topCenter,
             children: [
               Container(
-                height: 500,
+                height: 520,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    color: backgroundColor2,
+                    color: backgroundColor,
                     borderRadius: BorderRadius.circular(20)),
               ),
-              Container(
-                height: 250,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: neutral, borderRadius: BorderRadius.circular(20)),
-                child: MenuWidget(
-                  reicipe: widget.reicipe,
-                ),
+              Column(
+                children: [
+                  WeekMoneySpentWidget(
+                    currentday: widget.index,
+                    dayshow: false,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    height: 260,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        color: neutral,
+                        borderRadius: BorderRadius.circular(20)),
+                    child: MenuWidget(
+                      reicipe: widget.reicipe,
+                      backgroundcolor: neutral,
+                    ),
+                  )
+                ],
               ),
             ],
           ),
