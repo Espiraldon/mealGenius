@@ -73,7 +73,6 @@ class _FirstscreenState extends State<Firstscreen> {
   late int _currentSlide;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _currentSlide = 0;
   }
@@ -91,6 +90,7 @@ class _FirstscreenState extends State<Firstscreen> {
       WeekMoneySpentWidget(
         currentday: currentday - 1,
       ),
+      const MonthMoneySpentWidget()
     ];
     Widget buildIndicators() {
       return Row(

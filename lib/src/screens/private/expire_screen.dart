@@ -66,6 +66,7 @@ class _ExpireScreenState extends State<ExpireScreen> {
         }
       },
       child: Scaffold(
+        backgroundColor: backgroundColor,
         appBar: CustomAppbar(
           title: 'Expiration',
           leading: IconButton(

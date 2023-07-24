@@ -75,6 +75,7 @@ class _ReicipeScreenState extends State<ReicipeScreen> {
         }
       },
       child: Scaffold(
+          backgroundColor: backgroundColor,
           appBar: CustomAppbar(
             title: 'Reicipe',
             leading: IconButton(

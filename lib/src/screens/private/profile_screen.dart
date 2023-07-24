@@ -21,6 +21,7 @@ class _ProfileState extends State<Profile> {
         title: "Your Profile",
         leading: Icon(Icons.add),
       ),
+      backgroundColor: backgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(

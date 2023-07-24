@@ -112,7 +112,7 @@ class _ShopListPageWidgetState extends State<ShopListPageWidget> {
               Stack(
                 children: [
                   Container(
-                    height: 570,
+                    height: 510,
                     width: double.infinity,
                     color: backgroundColor,
                   ),
@@ -120,6 +120,22 @@ class _ShopListPageWidgetState extends State<ShopListPageWidget> {
                     ingredients: widget.list.product,
                   ),
                 ],
+              ),
+              Container(
+                alignment: Alignment.center,
+                height: 60,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [backstat3, backstat2])),
+                child: Text(
+                  'Price expected : ${widget.list.product.fold(0.0, (previousValue, element) => previousValue + element.cost * element.number)}€',
+                  style: GoogleFonts.lato(
+                      color: tipo2, fontSize: 18, fontWeight: FontWeight.w500),
+                ),
               ),
               const SizedBox(
                 height: 10,
@@ -394,13 +410,22 @@ class _IngredientsListsbyTypeState extends State<IngredientsListsbyType> {
                   style: GoogleFonts.lato(fontSize: 18, color: tipo),
                 )),
         Positioned(
-            top: 15,
+            top: 5,
             right: 0,
             child: GestureDetector(
               onTap: () => _changeQuantity(),
-              child: Text(
-                  '${widget.ingredients[widget.index].number} ${widget.ingredients[widget.index].typeNumber}',
-                  style: GoogleFonts.lato(fontSize: 15, color: Colors.grey)),
+              child: Column(
+                children: [
+                  Text(
+                      '${widget.ingredients[widget.index].number} ${widget.ingredients[widget.index].typeNumber}',
+                      style:
+                          GoogleFonts.lato(fontSize: 15, color: Colors.grey)),
+                  Text(
+                      '${widget.ingredients[widget.index].cost * widget.ingredients[widget.index].number}€',
+                      style:
+                          GoogleFonts.lato(fontSize: 15, color: Colors.grey)),
+                ],
+              ),
             )),
         Positioned(
             bottom: 10,

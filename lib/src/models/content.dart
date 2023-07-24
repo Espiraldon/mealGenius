@@ -53,7 +53,8 @@ class IngredientContent {
         cal: cal,
         ingredientImage: ingredientImage,
         number: number,
-        typeNumber: typeNumber);
+        typeNumber: typeNumber,
+        cost: cost);
   }
 }
 

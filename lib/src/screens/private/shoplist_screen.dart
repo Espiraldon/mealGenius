@@ -114,6 +114,7 @@ class _ShoplistScreeenState extends State<ShoplistScreeen> {
         }
       },
       child: Scaffold(
+        backgroundColor: backgroundColor,
         appBar: CustomAppbar(
           title: 'Shopping lists',
           leading: IconButton(

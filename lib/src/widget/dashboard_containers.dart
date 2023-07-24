@@ -69,8 +69,8 @@ class DashContainers extends StatefulWidget {
   final String image;
   final bool ispositive;
   final Function(int) onChangedStep;
-  final index;
-  DashContainers(
+  final int index;
+  const DashContainers(
       {required this.title,
       required this.number,
       this.image = "",
@@ -96,13 +96,9 @@ class _DashContainersState extends State<DashContainers> {
           top: 35,
           left: 20,
         ),
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topRight: Radius.circular(20),
-              topLeft: Radius.circular(20),
-              bottomLeft: Radius.circular(20),
-              bottomRight: Radius.circular(20)),
-          color: Color.fromARGB(255, 225, 202, 202),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: neutral,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

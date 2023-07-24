@@ -95,7 +95,7 @@ class _DayperWeekWidgetState extends State<DayperWeekWidget> {
           padding: const EdgeInsets.only(bottom: 20),
           child: Text(
             widget.day,
-            style: GoogleFonts.lato(fontSize: 20),
+            style: GoogleFonts.lato(fontSize: 20, color: tipo),
           ),
         ),
         Padding(
@@ -116,7 +116,7 @@ class _DayperWeekWidgetState extends State<DayperWeekWidget> {
                     currentday: widget.index,
                     dayshow: false,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(

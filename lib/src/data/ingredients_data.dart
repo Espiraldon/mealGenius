@@ -104,7 +104,7 @@ List<IngredientContent> ingredientsKnown = [
           ingredientImage: "lib/img/Oignon-de-garde.png",
           number: 1,
           cal: 2000,
-          cost: 1,
+          cost: 1.0,
           expirationDate: DateTime(2023, 7, 19)),
       IngredientContent(
           type: IngredientType.fruit,

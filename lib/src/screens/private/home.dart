@@ -34,6 +34,7 @@ class _HomeState extends State<Home> {
           child: _widgetOption[_selectindex],
         ),
       ),
+      backgroundColor: backgroundColor,
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -52,7 +53,7 @@ class _HomeState extends State<Home> {
         currentIndex: _selectindex,
         type: BottomNavigationBarType.fixed,
         backgroundColor: backgroundColor,
-        selectedItemColor: Colors.black,
+        selectedItemColor: tipo,
         unselectedItemColor: const Color.fromARGB(255, 106, 96, 96),
         showSelectedLabels: false,
         showUnselectedLabels: false,

@@ -15,6 +15,7 @@ class _SocialScreenState extends State<SocialScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
       extendBody: true,
       extendBodyBehindAppBar: true,
       appBar: AppBar(

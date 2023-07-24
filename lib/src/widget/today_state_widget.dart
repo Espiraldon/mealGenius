@@ -52,6 +52,8 @@ class _TodayState extends State<Today> {
 
     return SingleChildScrollView(
       child: SafeArea(
+
+        
         child: Padding(
           padding: const EdgeInsets.only(right: 15.0, left: 15),
           child: Column(

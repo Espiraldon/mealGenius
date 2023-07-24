@@ -143,9 +143,8 @@ class _DayMoneySpentWidgetState extends State<DayMoneySpentWidget> {
                   height: 80,
                   width: 310,
                   decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(25)),
-                    color: secondColor,
-                  ),
+                      borderRadius: const BorderRadius.all(Radius.circular(25)),
+                      gradient: primaryGradient),
                 ),
                 Positioned(
                   top: 15,
@@ -328,10 +327,7 @@ class _WeekMoneySpentWidgetState extends State<WeekMoneySpentWidget> {
                 width: 310,
                 decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(25)),
-                    gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [backstat, backstat2])),
+                    gradient: weekStatGradient),
               ),
               Positioned(
                 top: 15,
@@ -387,6 +383,54 @@ class _WeekMoneySpentWidgetState extends State<WeekMoneySpentWidget> {
                 ),
               )
             ]))
+      ],
+    );
+  }
+}
+
+class MonthMoneySpentWidget extends StatefulWidget {
+  const MonthMoneySpentWidget({super.key});
+
+  @override
+  State<MonthMoneySpentWidget> createState() => _MonthMoneySpentWidgetState();
+}
+
+class _MonthMoneySpentWidgetState extends State<MonthMoneySpentWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          height: 250,
+          width: double.infinity,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20), color: themeColor3),
+        ),
+        Positioned(
+            bottom: 20,
+            left: 25,
+            child: Stack(
+              children: [
+                Container(
+                  height: 80,
+                  width: 310,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      gradient: newThemeGradient),
+                ),
+                Positioned(
+                  top: 15,
+                  left: 20,
+                  child: Text(
+                    'Today',
+                    style: GoogleFonts.lato(
+                        color: tipo2,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ],
+            ))
       ],
     );
   }
