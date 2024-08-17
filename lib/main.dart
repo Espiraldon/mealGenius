@@ -68,6 +68,7 @@ class MyApp extends StatelessWidget {
                 if (!ingredientExists) {
                   myIngredients.add(ingredient);
                 }
+
                 //ReicipeContent reicipe =
                 //  ReicipeContent(ingredients: firestoreData["name"]);
               }
