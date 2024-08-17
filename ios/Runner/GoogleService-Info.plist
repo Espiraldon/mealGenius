@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>520134015169-5tl19bd2rrf51c7hl32tgnb3f80skajl.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.520134015169-5tl19bd2rrf51c7hl32tgnb3f80skajl</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>520134015169-m22k9r4hfgidf1difpfjuiohbq5ajsdj.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD6ClgM-d5c86xdhAF_A7qrkibAXw1rrHk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>520134015169</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.mealgenius</string>
+	<key>PROJECT_ID</key>
+	<string>mealgenius-bc50f</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mealgenius-bc50f.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:520134015169:ios:46c5a3532cfc2b87e83c40</string>
+</dict>
+</plist>

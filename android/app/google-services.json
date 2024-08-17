@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "520134015169",
+    "project_id": "mealgenius-bc50f",
+    "storage_bucket": "mealgenius-bc50f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:520134015169:android:0fda8c9f4a0a5de9e83c40",
+        "android_client_info": {
+          "package_name": "com.example.mealgenius"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "520134015169-ndraognkv4nbamj256lied4gllgb2p56.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mealgenius",
+            "certificate_hash": "f49d391e843f271b8b00f313ef7208fd3dd3bc44"
+          }
+        },
+        {
+          "client_id": "520134015169-p52kpqg74b3m3qn7otrbar76fhump6i1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB18PbtEs8AfyA6Zk4CEC81LyRi05LBA1I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "520134015169-j9kd1oenluum7hf5fkemo4uel7n8kgfk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "520134015169-5tl19bd2rrf51c7hl32tgnb3f80skajl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mealgenius"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

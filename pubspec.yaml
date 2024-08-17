@@ -1,0 +1,40 @@
+name: mealgenius
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.2.2 <4.0.0'
+
+dependencies:
+  carousel_slider: ^4.2.1
+  cloud_firestore: ^4.13.5
+  firebase_auth: ^4.15.2
+  firebase_core: ^2.24.0
+  fl_chart: ^0.65.0
+  flutter:
+    sdk: flutter
+  food_icons: ^0.0.6
+  google_fonts: ^6.1.0
+  google_sign_in: ^6.2.0
+  image_picker: ^1.0.4
+  provider: ^6.1.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  flutter_launcher_icons: "^0.13.1"
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "lib/img/logoprincipale.png"
+flutter:
+  uses-material-design: true
+  assets:
+    - lib/img/
+  fonts:
+  - family: Food
+    fonts:
+    - asset: packages/food_icons/Food.ttf
+
