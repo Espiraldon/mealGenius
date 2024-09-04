@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../models/content.dart';
@@ -16,7 +15,7 @@ List<ProfileContent> Application = [
       contenticons: Icon(Icons.upload_rounded),
       contenttitle: "Import ingrédients"),
   const ProfileContent(
-      contenticons: Icon(Icons.upload_rounded), contenttitle: "import Reicipe"),
+      contenticons: Icon(Icons.upload_rounded), contenttitle: "import recipe"),
 ];
 List<ProfileContent> Support = [
   const ProfileContent(contenticons: Icon(Icons.help), contenttitle: "Help us"),

@@ -34,7 +34,32 @@ class _IngredientsManageScreeenState extends State<IngredientsManageScreeen> {
     ),
     IngredientsWidget(
       ingredientItems: myIngredients
-          .where((element) => element.type == IngredientType.meal)
+          .where((element) => element.type == IngredientType.meat)
+          .toList(),
+    ),
+    IngredientsWidget(
+      ingredientItems: myIngredients
+          .where((element) => element.type == IngredientType.fish)
+          .toList(),
+    ),
+    IngredientsWidget(
+      ingredientItems: myIngredients
+          .where((element) => element.type == IngredientType.carbohydrate)
+          .toList(),
+    ),
+    IngredientsWidget(
+      ingredientItems: myIngredients
+          .where((element) => element.type == IngredientType.legume)
+          .toList(),
+    ),
+    IngredientsWidget(
+      ingredientItems: myIngredients
+          .where((element) => element.type == IngredientType.pasta)
+          .toList(),
+    ),
+    IngredientsWidget(
+      ingredientItems: myIngredients
+          .where((element) => element.type == IngredientType.boisson)
           .toList(),
     ),
     IngredientsWidget(
@@ -58,105 +83,37 @@ class _IngredientsManageScreeenState extends State<IngredientsManageScreeen> {
           .toList(),
     ),
   ];
-  List<Color> colorbar = [
-    tipo,
-    Colors.grey,
-    Colors.grey,
-    Colors.grey,
-    Colors.grey,
-    Colors.grey,
-    Colors.grey,
+  List<String> listTitle = [
+    'fruit',
+    'vegetable',
+    'meat',
+    'fish',
+    'carbohydrate',
+    'legume',
+    'pasta',
+    'boisson',
+    'feculent',
+    'salsa',
+    'dairyProducts',
+    'other'
   ];
-  void _onItemTapped(
-    int index,
-  ) {
+
+  List<Color> colorbar = List.generate(12, (index) => Colors.grey);
+
+  void _onItemTapped(int index) {
     setState(() {
       _selectindex = index;
-      if (index == 0) {
-        colorbar = [
-          tipo,
-          Colors.grey,
-          Colors.grey,
-          Colors.grey,
-          Colors.grey,
-          Colors.grey,
-          Colors.grey,
-        ];
-      } else if (index == 1) {
-        colorbar = [
-          Colors.grey,
-          tipo,
-          Colors.grey,
-          Colors.grey,
-          Colors.grey,
-          Colors.grey,
-          Colors.grey,
-        ];
-      } else if (index == 2) {
-        colorbar = [
-          Colors.grey,
-          Colors.grey,
-          tipo,
-          Colors.grey,
-          Colors.grey,
-          Colors.grey,
-          Colors.grey,
-        ];
-      } else if (index == 3) {
-        colorbar = [
-          Colors.grey,
-          Colors.grey,
-          Colors.grey,
-          tipo,
-          Colors.grey,
-          Colors.grey,
-          Colors.grey,
-        ];
-      } else if (index == 4) {
-        colorbar = [
-          Colors.grey,
-          Colors.grey,
-          Colors.grey,
-          Colors.grey,
-          tipo,
-          Colors.grey,
-          Colors.grey,
-        ];
-      } else if (index == 5) {
-        colorbar = [
-          Colors.grey,
-          Colors.grey,
-          Colors.grey,
-          Colors.grey,
-          Colors.grey,
-          tipo,
-          Colors.grey,
-        ];
-      } else if (index == 6) {
-        colorbar = [
-          Colors.grey,
-          Colors.grey,
-          Colors.grey,
-          Colors.grey,
-          Colors.grey,
-          Colors.grey,
-          tipo,
-        ];
-      }
+
+      // Réinitialiser toutes les couleurs à gris
+      colorbar = List.generate(listTitle.length, (i) => Colors.grey);
+
+      // Appliquer la couleur 'tipo' à l'index sélectionné
+      colorbar[index] = tipo;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    List<String> listTitle = [
-      'fruit',
-      'vegetable',
-      'meal',
-      'feculent',
-      'salsa',
-      'dairyProducts',
-      'other'
-    ];
     return Dismissible(
       key: const Key('value'),
       resizeDuration: const Duration(milliseconds: 1),
@@ -188,7 +145,7 @@ class _IngredientsManageScreeenState extends State<IngredientsManageScreeen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        for (int i = 0; i < 7; i++)
+                        for (int i = 0; i < listTitle.length; i++)
                           ActionBar(
                               index: i,
                               title: listTitle[i],

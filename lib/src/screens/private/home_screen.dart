@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     currentday = DateTime.now().weekday;
-    todayReicipe = weekday[(currentday - 1) % 6];
+    todayrecipe = weekday[(currentday - 1) % 6];
     widgets.addAll([
       Firstscreen(
           onItemtap: (index) => setState(() {
@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
           onItemtap: (index) => setState(() {
                 _selectindex = index;
               })),
-      ReicipeScreen(
+      recipeScreen(
           onItemtap: (index) => setState(() {
                 _selectindex = index;
               })),
@@ -164,7 +164,7 @@ class _FirstscreenState extends State<Firstscreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Dashboard(
-                    reicipenumber: '${myReicipe.length}',
+                    reicipenumber: '${myrecipe.length}',
                     expirenumber: '${expiredIngredients.length}',
                     ingredientnumber: '${myIngredients.length}',
                     shopnumber: '${myShopList.length}',

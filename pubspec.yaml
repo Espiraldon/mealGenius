@@ -17,8 +17,13 @@ dependencies:
   food_icons: ^0.0.6
   google_fonts: ^6.1.0
   google_sign_in: ^6.2.0
+  html: ^0.15.4
+  http: ^1.2.0
   image_picker: ^1.0.4
+  path_provider: ^2.1.4
+  permission_handler: ^11.3.1
   provider: ^6.1.1
+  sqflite: ^2.3.2
 
 dev_dependencies:
   flutter_test:

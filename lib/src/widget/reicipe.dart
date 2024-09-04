@@ -1,13 +1,12 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../data/data.dart';
 import '../models/content.dart';
 
-class Reicipe extends StatelessWidget {
-  final ReicipeContent reicipe;
-  const Reicipe({required this.reicipe, super.key});
+class recipe extends StatelessWidget {
+  final recipeContent recipes;
+  const recipe({required this.recipes, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +30,8 @@ class Reicipe extends StatelessWidget {
               child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(15)),
                   child: FittedBox(
-                      fit: BoxFit.cover, child: Image.asset(reicipe.reicipeImage))),
+                      fit: BoxFit.cover,
+                      child: Image.network(recipes.recipeImage))),
             ),
             Container(
               alignment: Alignment.center,
@@ -41,7 +41,7 @@ class Reicipe extends StatelessWidget {
                   color: backgroundColor,
                   borderRadius: const BorderRadius.all(Radius.circular(15))),
               child: Text(
-                reicipe.time,
+                recipes.time,
                 style: GoogleFonts.lato(
                   color: tipo,
                 ),
@@ -55,7 +55,7 @@ class Reicipe extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  reicipe.title,
+                  recipes.title,
                   style: GoogleFonts.lato(
                       color: tipo, fontSize: 18, fontWeight: FontWeight.w600),
                 ),
@@ -67,7 +67,7 @@ class Reicipe extends StatelessWidget {
                       color: positive,
                     ),
                     Text(
-                      " ${reicipe.cost} €",
+                      " ${recipes.cost} €",
                       style: GoogleFonts.lato(
                           color: tipo,
                           fontSize: 15,
@@ -76,7 +76,7 @@ class Reicipe extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  "${reicipe.calories} kcal",
+                  "${recipes.calories} kcal",
                   style: GoogleFonts.lato(
                     color: negative,
                     fontSize: 15,

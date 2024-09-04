@@ -7,18 +7,18 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../data/data.dart';
 import '../../widget/custom_appbar.dart';
-import '../../widget/receipe_widget.dart';
+import '../../widget/recipe_widget.dart';
 
-class ReicipeScreen extends StatefulWidget {
+class recipeScreen extends StatefulWidget {
   final Function(int) onItemtap;
 
-  const ReicipeScreen({required this.onItemtap, super.key});
+  const recipeScreen({required this.onItemtap, super.key});
 
   @override
-  State<ReicipeScreen> createState() => _ReicipeScreenState();
+  State<recipeScreen> createState() => _recipeScreenState();
 }
 
-class _ReicipeScreenState extends State<ReicipeScreen> {
+class _recipeScreenState extends State<recipeScreen> {
   List<Color> colorbar = [
     tipo,
     Colors.grey,
@@ -50,14 +50,14 @@ class _ReicipeScreenState extends State<ReicipeScreen> {
     });
   }
 
-  void createReicipe() {
+  void createrecipe() {
     setState(() {
       showDialog(
           context: context,
           builder: (BuildContext context) {
             return Dialog.fullscreen(
               backgroundColor: backgroundColor,
-              child: const AddReicipeWidget(),
+              child: const AddrecipeWidget(),
             );
           });
     });
@@ -78,7 +78,7 @@ class _ReicipeScreenState extends State<ReicipeScreen> {
       child: Scaffold(
         backgroundColor: backgroundColor,
         appBar: CustomAppbar(
-          title: 'Reicipe',
+          title: 'recipe',
           leading: IconButton(
               onPressed: () => widget.onItemtap(0),
               icon: const Icon(Icons.arrow_back_ios_new_outlined)),
@@ -93,7 +93,7 @@ class _ReicipeScreenState extends State<ReicipeScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
                     child: Text(
-                      'All reicipe',
+                      'All recipe',
                       style: GoogleFonts.lato(
                           color: tipo,
                           fontSize: 30,
@@ -105,7 +105,7 @@ class _ReicipeScreenState extends State<ReicipeScreen> {
                   ),
                   SearchBar(
                     backgroundColor: MaterialStatePropertyAll(backgroundColor2),
-                    hintText: 'Search reicipe',
+                    hintText: 'Search recipe',
                     textStyle: MaterialStatePropertyAll(
                         GoogleFonts.lato(color: Colors.grey, fontSize: 15)),
                     leading: const Icon(Icons.search_outlined),
@@ -126,12 +126,12 @@ class _ReicipeScreenState extends State<ReicipeScreen> {
                       ),
                     ],
                   ),
-                  ReicipeListWidget(reicipes: myReicipe),
+                  recipeListWidget(recipes: myrecipe),
                   SizedBox(
                     height: 50,
                   ),
                   GestureDetector(
-                    onTap: () => createReicipe(),
+                    onTap: () => createrecipe(),
                     child: Container(
                       alignment: Alignment.center,
                       height: 50,
@@ -140,7 +140,7 @@ class _ReicipeScreenState extends State<ReicipeScreen> {
                           borderRadius: BorderRadius.circular(22),
                           color: primaryColor),
                       child: Text(
-                        'Create new reicipe',
+                        'Create new recipe',
                         style: GoogleFonts.lato(color: backgroundColor),
                       ),
                     ),
@@ -155,18 +155,18 @@ class _ReicipeScreenState extends State<ReicipeScreen> {
   }
 }
 
-class ReicipeListWidget extends StatefulWidget {
-  final List<ReicipeContent> reicipes;
-  const ReicipeListWidget({required this.reicipes, super.key});
+class recipeListWidget extends StatefulWidget {
+  final List<recipeContent> recipes;
+  const recipeListWidget({required this.recipes, super.key});
 
   @override
-  State<ReicipeListWidget> createState() => _ReicipeListWidgetState();
+  State<recipeListWidget> createState() => _recipeListWidgetState();
 }
 
-class _ReicipeListWidgetState extends State<ReicipeListWidget> {
+class _recipeListWidgetState extends State<recipeListWidget> {
   @override
   Widget build(BuildContext context) {
-    void _onItemtap(ReicipeContent reicipe) {
+    void _onItemtap(recipeContent recipe) {
       setState(() {
         showDialog(
             context: context,
@@ -176,7 +176,7 @@ class _ReicipeListWidgetState extends State<ReicipeListWidget> {
                   backgroundColor: backgroundColor,
                   appBar: CustomAppbar(
                     titleWidget: Text(
-                      reicipe.title,
+                      recipe.title,
                       style: GoogleFonts.lato(
                           fontSize: 17,
                           fontWeight: FontWeight.w700,
@@ -193,7 +193,7 @@ class _ReicipeListWidgetState extends State<ReicipeListWidget> {
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: SafeArea(
                         child: ReceipeWidget(
-                          reicipe: reicipe,
+                          recipe: recipe,
                         ),
                       ),
                     ),
@@ -212,13 +212,13 @@ class _ReicipeListWidgetState extends State<ReicipeListWidget> {
       ),
       child: ListView.builder(
         shrinkWrap: true,
-        itemCount: widget.reicipes.length,
+        itemCount: widget.recipes.length,
         itemBuilder: (BuildContext context, int index) {
-          final ReicipeContent reicipe = widget.reicipes[index];
+          final recipeContent recipe = widget.recipes[index];
           return Stack(
             children: [
               Dismissible(
-                key: Key(reicipe.title),
+                key: Key(recipe.title),
                 background: Container(
                   color: negative,
                   alignment: Alignment.centerRight,
@@ -228,7 +228,7 @@ class _ReicipeListWidgetState extends State<ReicipeListWidget> {
                 onDismissed: (direction) {
                   if (direction == DismissDirection.endToStart) {
                     setState(() {
-                      widget.reicipes.removeAt(index);
+                      widget.recipes.removeAt(index);
                     });
                   }
                 },
@@ -244,20 +244,20 @@ class _ReicipeListWidgetState extends State<ReicipeListWidget> {
                             height: 35,
                             width: 35,
                             child: ClipOval(
-                              child: Image.asset(reicipe.reicipeImage),
+                              child: Image.network(recipe.recipeImage),
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(left: 20.0),
                             child: Text(
-                              reicipe.title,
+                              recipe.title,
                               style: GoogleFonts.lato(color: tipo),
                             ),
                           ),
                         ],
                       ),
                       GestureDetector(
-                        onTap: () => _onItemtap(reicipe),
+                        onTap: () => _onItemtap(recipe),
                         child: CircleAvatar(
                           backgroundColor: primaryColor,
                           child: const Icon(
@@ -285,17 +285,17 @@ class _ReicipeListWidgetState extends State<ReicipeListWidget> {
   }
 }
 
-class AddReicipeWidget extends StatefulWidget {
-  const AddReicipeWidget({super.key});
+class AddrecipeWidget extends StatefulWidget {
+  const AddrecipeWidget({super.key});
 
   @override
-  State<AddReicipeWidget> createState() => _AddReicipeWidgetState();
+  State<AddrecipeWidget> createState() => _AddrecipeWidgetState();
 }
 
-class _AddReicipeWidgetState extends State<AddReicipeWidget> {
+class _AddrecipeWidgetState extends State<AddrecipeWidget> {
   @override
   Widget build(BuildContext context) {
-    ReicipeContent newReicipe = ReicipeContent(ingredients: []);
+    recipeContent newrecipe = recipeContent(ingredients: []);
 
     NumberType Selectoption = NumberType.Grammes;
 
@@ -304,10 +304,14 @@ class _AddReicipeWidgetState extends State<AddReicipeWidget> {
       IngredientType.dairyProducts,
       IngredientType.feculent,
       IngredientType.fruit,
-      IngredientType.meal,
+      IngredientType.meat,
       IngredientType.other,
       IngredientType.salsa,
-      IngredientType.vegetable
+      IngredientType.vegetable,
+      IngredientType.fish,
+      IngredientType.pasta,
+      IngredientType.carbohydrate,
+      IngredientType.boisson
     ];
     List<NumberType> typeNumber = [
       NumberType.Grammes,
@@ -471,7 +475,7 @@ class _AddReicipeWidgetState extends State<AddReicipeWidget> {
                       TextButton(
                           onPressed: () => setState(() {
                                 ingredientsKnown.add(newIgredient.copy());
-                                newReicipe.ingredients.add(newIgredient.copy());
+                                newrecipe.ingredients.add(newIgredient.copy());
                                 Navigator.of(context).pop();
                               }),
                           child: Text(
@@ -508,9 +512,9 @@ class _AddReicipeWidgetState extends State<AddReicipeWidget> {
                       child: Column(
                         children: [
                           TextFormField(
-                            initialValue: newReicipe.title,
+                            initialValue: newrecipe.title,
                             onChanged: (String title) => setState(() {
-                              newReicipe.title = title;
+                              newrecipe.title = title;
                             }),
                             decoration: InputDecoration(
                               label: Text(
@@ -523,9 +527,9 @@ class _AddReicipeWidgetState extends State<AddReicipeWidget> {
                             ),
                           ),
                           TextFormField(
-                            initialValue: newReicipe.cost,
+                            initialValue: newrecipe.cost,
                             onChanged: (String cost) => setState(() {
-                              newReicipe.cost = cost;
+                              newrecipe.cost = cost;
                             }),
                             decoration: InputDecoration(
                               label: Text(
@@ -539,9 +543,9 @@ class _AddReicipeWidgetState extends State<AddReicipeWidget> {
                             keyboardType: TextInputType.number,
                           ),
                           TextFormField(
-                            initialValue: newReicipe.calories,
+                            initialValue: newrecipe.calories,
                             onChanged: (String calories) => setState(() {
-                              newReicipe.calories = calories;
+                              newrecipe.calories = calories;
                             }),
                             decoration: InputDecoration(
                               label: Text(
@@ -555,9 +559,9 @@ class _AddReicipeWidgetState extends State<AddReicipeWidget> {
                             keyboardType: TextInputType.number,
                           ),
                           TextFormField(
-                            initialValue: newReicipe.glucides,
+                            initialValue: newrecipe.glucides,
                             onChanged: (String glucides) => setState(() {
-                              newReicipe.glucides = glucides;
+                              newrecipe.glucides = glucides;
                             }),
                             decoration: InputDecoration(
                               label: Text(
@@ -571,9 +575,9 @@ class _AddReicipeWidgetState extends State<AddReicipeWidget> {
                             keyboardType: TextInputType.number,
                           ),
                           TextFormField(
-                            initialValue: newReicipe.lipides,
+                            initialValue: newrecipe.lipides,
                             onChanged: (String lipides) => setState(() {
-                              newReicipe.lipides = lipides;
+                              newrecipe.lipides = lipides;
                             }),
                             decoration: InputDecoration(
                               label: Text(
@@ -587,9 +591,9 @@ class _AddReicipeWidgetState extends State<AddReicipeWidget> {
                             keyboardType: TextInputType.number,
                           ),
                           TextFormField(
-                            initialValue: newReicipe.proteines,
+                            initialValue: newrecipe.proteines,
                             onChanged: (String proteines) => setState(() {
-                              newReicipe.proteines = proteines;
+                              newrecipe.proteines = proteines;
                             }),
                             decoration: InputDecoration(
                               label: Text(
@@ -603,9 +607,9 @@ class _AddReicipeWidgetState extends State<AddReicipeWidget> {
                             keyboardType: TextInputType.number,
                           ),
                           TextFormField(
-                            initialValue: newReicipe.time,
+                            initialValue: newrecipe.time,
                             onChanged: (String calories) => setState(() {
-                              newReicipe.time = calories;
+                              newrecipe.time = calories;
                             }),
                             decoration: InputDecoration(
                               label: Text(
@@ -619,13 +623,13 @@ class _AddReicipeWidgetState extends State<AddReicipeWidget> {
                             keyboardType: TextInputType.datetime,
                           ),
                           TextFormField(
-                            initialValue: newReicipe.reicipe,
+                            initialValue: newrecipe.recipe,
                             onChanged: (String calories) => setState(() {
-                              newReicipe.reicipe = calories;
+                              newrecipe.recipe = calories;
                             }),
                             decoration: InputDecoration(
                               label: Text(
-                                'Reicipe',
+                                'recipe',
                                 style: GoogleFonts.lato(
                                     color: tipo,
                                     fontSize: 15,
@@ -649,7 +653,7 @@ class _AddReicipeWidgetState extends State<AddReicipeWidget> {
     return Dismissible(
       key: const Key('value'),
       resizeDuration: const Duration(milliseconds: 1),
-      background: ReicipeScreen(
+      background: recipeScreen(
         onItemtap: (index) => setState(() {}),
       ),
       direction: DismissDirection.startToEnd,
@@ -666,7 +670,7 @@ class _AddReicipeWidgetState extends State<AddReicipeWidget> {
           leading: CloseButton(
             onPressed: () => Navigator.pop(context),
           ),
-          titleWidget: Text(newReicipe.title,
+          titleWidget: Text(newrecipe.title,
               style: GoogleFonts.lato(
                   fontSize: 17, fontWeight: FontWeight.w700, color: tipo)),
         ),
@@ -684,7 +688,7 @@ class _AddReicipeWidgetState extends State<AddReicipeWidget> {
                           borderRadius: BorderRadius.circular(20),
                           child: FittedBox(
                               fit: BoxFit.cover,
-                              child: newReicipe.reicipeImage == ""
+                              child: newrecipe.recipeImage == ""
                                   ? IconButton(
                                       icon: const Icon(Icons.image),
                                       onPressed: () async {
@@ -693,10 +697,10 @@ class _AddReicipeWidgetState extends State<AddReicipeWidget> {
                                             await imagePicker.pickImage(
                                                 source: ImageSource.gallery);
                                         if (image != null) {
-                                          newReicipe.reicipeImage = image.path;
+                                          newrecipe.recipeImage = image.path;
                                         }
                                       })
-                                  : Image.asset(newReicipe.reicipeImage))),
+                                  : Image.network(newrecipe.recipeImage))),
                     ),
                     Positioned(
                         right: 0,
@@ -723,10 +727,10 @@ class _AddReicipeWidgetState extends State<AddReicipeWidget> {
                           ListView.builder(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
-                              itemCount: newReicipe.ingredients.length,
+                              itemCount: newrecipe.ingredients.length,
                               itemBuilder: (BuildContext context, int index) {
                                 final IngredientContent ingredient =
-                                    newReicipe.ingredients[index];
+                                    newrecipe.ingredients[index];
                                 return Stack(children: [
                                   Dismissible(
                                     key: Key(ingredient.name),
@@ -740,8 +744,7 @@ class _AddReicipeWidgetState extends State<AddReicipeWidget> {
                                       if (direction ==
                                           DismissDirection.endToStart) {
                                         setState(() {
-                                          newReicipe.ingredients
-                                              .removeAt(index);
+                                          newrecipe.ingredients.removeAt(index);
                                         });
                                       }
                                     },
@@ -761,7 +764,7 @@ class _AddReicipeWidgetState extends State<AddReicipeWidget> {
                                       child: CircleAvatar(
                                         radius: 20,
                                         backgroundColor: backgroundColor2,
-                                        child: Image.asset(
+                                        child: Image.network(
                                             ingredient.ingredientImage),
                                       )),
                                   Positioned(
@@ -847,7 +850,7 @@ class _AddReicipeWidgetState extends State<AddReicipeWidget> {
                   child: GestureDetector(
                     onTap: () => setState(() {
                       Navigator.pop(context);
-                      myReicipe.add(newReicipe);
+                      myrecipe.add(newrecipe);
                     }),
                     child: Container(
                       alignment: Alignment.center,

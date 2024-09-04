@@ -17,7 +17,7 @@ Color backstat2 = const Color.fromARGB(255, 21, 42, 60);
 Color backstat3 = const Color.fromARGB(255, 12, 24, 38);
 Color linecolor = const Color.fromARGB(255, 131, 82, 239);
 Color complementaryColor = const Color.fromARGB(255, 39, 219, 60);
-
+Color white = Colors.white;
 Color themeColor1 = const Color.fromARGB(255, 64, 75, 92);
 Color themeColor2 = const Color.fromARGB(255, 78, 92, 111);
 Color themeColor3 = const Color.fromARGB(255, 92, 109, 130);

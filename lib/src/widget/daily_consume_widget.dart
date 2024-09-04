@@ -48,7 +48,7 @@ class _DailyConsumeWidgetState extends State<DailyConsumeWidget> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            '${sum(todayReicipe!.where((element) => element.calories.runtimeType == String).map((e) => e.calories).toList())}',
+                            '${sum(todayrecipe!.where((element) => element.calories.runtimeType == String).map((e) => e.calories).toList())}',
                             style: GoogleFonts.lato(
                                 color: tipo, fontWeight: FontWeight.w900),
                           ),
@@ -66,7 +66,7 @@ class _DailyConsumeWidgetState extends State<DailyConsumeWidget> {
                       child: Transform.rotate(
                         angle: -0.75 * 3.14,
                         child: CircularProgressIndicator(
-                          value: sum(todayReicipe!
+                          value: sum(todayrecipe!
                                   .where((element) =>
                                       element.calories.runtimeType == String)
                                   .map((e) => e.calories)
@@ -122,7 +122,7 @@ class _DailyConsumeWidgetState extends State<DailyConsumeWidget> {
                   ConsumeWidget(
                     title: 'Glucides',
                     expected: 254,
-                    realised: sum(todayReicipe!
+                    realised: sum(todayrecipe!
                         .where(
                             (element) => element.glucides.runtimeType == String)
                         .map((e) => e.glucides)
@@ -131,7 +131,7 @@ class _DailyConsumeWidgetState extends State<DailyConsumeWidget> {
                   ConsumeWidget(
                     title: 'Protéines',
                     expected: 103,
-                    realised: sum(todayReicipe!
+                    realised: sum(todayrecipe!
                         .where((element) =>
                             element.proteines.runtimeType == String)
                         .map((e) => e.proteines)
@@ -140,7 +140,7 @@ class _DailyConsumeWidgetState extends State<DailyConsumeWidget> {
                   ConsumeWidget(
                     title: 'Lipides',
                     expected: 120,
-                    realised: sum(todayReicipe!
+                    realised: sum(todayrecipe!
                         .where(
                             (element) => element.lipides.runtimeType == String)
                         .map((e) => e.lipides)

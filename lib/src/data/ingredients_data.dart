@@ -1,13 +1,19 @@
 import 'package:mealgenius/src/models/content.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 List<IngredientType> type = [
   IngredientType.dairyProducts,
   IngredientType.feculent,
   IngredientType.fruit,
-  IngredientType.meal,
+  IngredientType.meat,
   IngredientType.other,
   IngredientType.salsa,
-  IngredientType.vegetable
+  IngredientType.vegetable,
+  IngredientType.fish,
+  IngredientType.pasta,
+  IngredientType.carbohydrate,
+  IngredientType.boisson
 ];
 List<IngredientContent> myIngredients = [];
 List<ShopListContent> recommandationShopList = [];
@@ -33,7 +39,7 @@ List<IngredientContent> ingredientsKnown = [
     ] +
     [
       IngredientContent(
-        type: IngredientType.meal,
+        type: IngredientType.meat,
         name: 'Beaf',
         ingredientImage: "lib/img/Oignon-de-garde.png",
         number: 1,

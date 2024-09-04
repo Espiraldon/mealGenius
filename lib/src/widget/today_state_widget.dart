@@ -7,7 +7,7 @@ import 'package:mealgenius/src/models/content.dart';
 import 'package:mealgenius/src/widget/custom_appbar.dart';
 import '../data/data.dart';
 import 'package:food_icons/food_icons.dart';
-import '../widget/receipe_widget.dart';
+import 'recipe_widget.dart';
 import 'daily_consume_widget.dart';
 import 'money_widget.dart';
 
@@ -23,7 +23,7 @@ class _TodayState extends State<Today> {
   @override
   void initState() {
     super.initState();
-    todayReicipe = weekday[currentday - 1];
+    todayrecipe = weekday[currentday - 1];
     _currentSlide = 0;
   }
 
@@ -52,8 +52,6 @@ class _TodayState extends State<Today> {
 
     return SingleChildScrollView(
       child: SafeArea(
-
-        
         child: Padding(
           padding: const EdgeInsets.only(right: 15.0, left: 15),
           child: Column(
@@ -91,7 +89,7 @@ class _TodayState extends State<Today> {
                   ),
                 ),
                 MenuWidget(
-                  reicipe: todayReicipe,
+                  recipe: todayrecipe,
                   backgroundcolor: backgroundColor2,
                 ),
               ]),
@@ -102,9 +100,9 @@ class _TodayState extends State<Today> {
 }
 
 class MenuWidget extends StatefulWidget {
-  List<ReicipeContent>? reicipe;
+  List<recipeContent>? recipe;
   Color backgroundcolor;
-  MenuWidget({required this.backgroundcolor, required this.reicipe, super.key});
+  MenuWidget({required this.backgroundcolor, required this.recipe, super.key});
 
   @override
   State<MenuWidget> createState() => _MenuWidgetState();
@@ -118,26 +116,26 @@ class _MenuWidgetState extends State<MenuWidget> {
           name: 'Break feast',
           icon: Icons.coffee,
           max: 600,
-          realised: int.parse(widget.reicipe![0].calories),
-          reicipe: widget.reicipe![0]),
+          realised: int.parse(widget.recipe![0].calories),
+          recipe: widget.recipe![0]),
       MenuClass(
           name: 'Lunch',
           icon: FoodIcons.wisk,
           max: 800,
-          realised: int.parse(widget.reicipe![1].calories),
-          reicipe: widget.reicipe![1]),
+          realised: int.parse(widget.recipe![1].calories),
+          recipe: widget.recipe![1]),
       MenuClass(
           name: 'Dinner',
           icon: FoodIcons.bowl,
           max: 600,
-          realised: int.parse(widget.reicipe![2].calories),
-          reicipe: widget.reicipe![2]),
+          realised: int.parse(widget.recipe![2].calories),
+          recipe: widget.recipe![2]),
       MenuClass(
           name: 'Snack',
           icon: FoodIcons.oven,
           max: 40,
-          realised: int.parse(widget.reicipe![3].calories),
-          reicipe: widget.reicipe![3])
+          realised: int.parse(widget.recipe![3].calories),
+          recipe: widget.recipe![3])
     ];
   }
 
@@ -150,15 +148,14 @@ class _MenuWidgetState extends State<MenuWidget> {
   void onItemtap(MenuClass menu, int index) {
     setState(
       () {
-        String change = myReicipe[0].title;
+        String change = myrecipe[0].title;
         showDialog(
             context: context,
             builder: (BuildContext context) {
-              return menu.reicipe == null ||
-                      menu.reicipe!.title == 'New reicipe'
+              return menu.recipe == null || menu.recipe!.title == 'New recipe'
                   ? AlertDialog(
                       title: Text(
-                        'Add reicipe',
+                        'Add recipe',
                         style: GoogleFonts.lato(),
                       ),
                       content: SingleChildScrollView(
@@ -167,7 +164,7 @@ class _MenuWidgetState extends State<MenuWidget> {
                           children: [
                             DropdownButton(
                                 value: change,
-                                items: myReicipe.map((ReicipeContent e) {
+                                items: myrecipe.map((recipeContent e) {
                                   return DropdownMenuItem(
                                       value: e.title,
                                       child: Text(
@@ -180,8 +177,8 @@ class _MenuWidgetState extends State<MenuWidget> {
                                     })),
                             TextButton(
                                 onPressed: () => setState(() {
-                                      widget.reicipe![index] =
-                                          myReicipe.firstWhere((element) =>
+                                      widget.recipe![index] =
+                                          myrecipe.firstWhere((element) =>
                                               element.title == change);
                                       init();
                                       Navigator.of(context).pop();
@@ -239,7 +236,7 @@ class _MenuWidgetState extends State<MenuWidget> {
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
                           child: SafeArea(
                             child: ReceipeWidget(
-                              reicipe: menu.reicipe!,
+                              recipe: menu.recipe!,
                             ),
                           ),
                         ),
@@ -324,8 +321,8 @@ class _MenuWidgetState extends State<MenuWidget> {
                       child: CircleAvatar(
                         radius: 15,
                         backgroundColor: primaryColor,
-                        child: menu.reicipe == null ||
-                                menu.reicipe!.title == 'New reicipe'
+                        child: menu.recipe == null ||
+                                menu.recipe!.title == 'New recipe'
                             ? Icon(
                                 Icons.add,
                                 color: backgroundColor,

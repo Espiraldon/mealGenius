@@ -22,35 +22,35 @@ class _WeekState extends State<Week> {
     List<Widget> widgets = [
       DayperWeekWidget(
         day: 'Monday',
-        reicipe: monday,
+        recipe: monday,
         index: 0,
       ),
       DayperWeekWidget(
         day: 'Tuesday',
-        reicipe: tuesday,
+        recipe: tuesday,
         index: 1,
       ),
       DayperWeekWidget(
         day: 'Wenesday',
-        reicipe: wenesday,
+        recipe: wenesday,
         index: 2,
       ),
       DayperWeekWidget(
         day: 'Thirsday',
-        reicipe: thirsday,
+        recipe: thirsday,
         index: 3,
       ),
       DayperWeekWidget(
         day: 'Friday',
-        reicipe: friday,
+        recipe: friday,
         index: 4,
       ),
       DayperWeekWidget(
         day: 'Saturday',
-        reicipe: saturday,
+        recipe: saturday,
         index: 5,
       ),
-      DayperWeekWidget(day: 'Sunday', reicipe: sunday, index: 6),
+      DayperWeekWidget(day: 'Sunday', recipe: sunday, index: 6),
     ];
     return SafeArea(
       child: CarouselSlider.builder(
@@ -72,11 +72,11 @@ class _WeekState extends State<Week> {
 
 class DayperWeekWidget extends StatefulWidget {
   final String day;
-  List<ReicipeContent>? reicipe;
+  List<recipeContent>? recipe;
   int index;
   DayperWeekWidget(
       {required this.index,
-      required this.reicipe,
+      required this.recipe,
       required this.day,
       super.key});
 
@@ -126,7 +126,7 @@ class _DayperWeekWidgetState extends State<DayperWeekWidget> {
                         color: neutral,
                         borderRadius: BorderRadius.circular(20)),
                     child: MenuWidget(
-                      reicipe: widget.reicipe,
+                      recipe: widget.recipe,
                       backgroundcolor: neutral,
                     ),
                   )

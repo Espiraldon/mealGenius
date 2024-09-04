@@ -90,13 +90,61 @@ class _GlobalViewWidgetState extends State<GlobalViewWidget> {
                   BarChartRodData(
                       color: primaryColor,
                       toY: double.parse(
-                          '${myIngredients.where((element) => element.type == IngredientType.meal).toList().fold(0, (previousValue, element) => previousValue + element.number.toInt())}'))
+                          '${myIngredients.where((element) => element.type == IngredientType.meat).toList().fold(0, (previousValue, element) => previousValue + element.number.toInt())}'))
                 ]),
                 BarChartGroupData(x: 3, barRods: [
                   BarChartRodData(
                       color: primaryColor,
                       toY: double.parse(
                           '${myIngredients.where((element) => element.type == IngredientType.feculent).toList().fold(0, (previousValue, element) => previousValue + element.number.toInt())}'))
+                ]),
+                BarChartGroupData(x: 4, barRods: [
+                  BarChartRodData(
+                      color: primaryColor,
+                      toY: double.parse(
+                          '${myIngredients.where((element) => element.type == IngredientType.salsa).toList().fold(0, (previousValue, element) => previousValue + element.number.toInt())}'))
+                ]),
+                BarChartGroupData(x: 5, barRods: [
+                  BarChartRodData(
+                      color: primaryColor,
+                      toY: double.parse(
+                          '${myIngredients.where((element) => element.type == IngredientType.dairyProducts).toList().fold(0, (previousValue, element) => previousValue + element.number.toInt())}'))
+                ]),
+                BarChartGroupData(x: 6, barRods: [
+                  BarChartRodData(
+                      color: primaryColor,
+                      toY: double.parse(
+                          '${myIngredients.where((element) => element.type == IngredientType.boisson).toList().fold(0, (previousValue, element) => previousValue + element.number.toInt())}'))
+                ]),
+                BarChartGroupData(x: 7, barRods: [
+                  BarChartRodData(
+                      color: primaryColor,
+                      toY: double.parse(
+                          '${myIngredients.where((element) => element.type == IngredientType.fish).toList().fold(0, (previousValue, element) => previousValue + element.number.toInt())}'))
+                ]),
+                BarChartGroupData(x: 8, barRods: [
+                  BarChartRodData(
+                      color: primaryColor,
+                      toY: double.parse(
+                          '${myIngredients.where((element) => element.type == IngredientType.carbohydrate).toList().fold(0, (previousValue, element) => previousValue + element.number.toInt())}'))
+                ]),
+                BarChartGroupData(x: 9, barRods: [
+                  BarChartRodData(
+                      color: primaryColor,
+                      toY: double.parse(
+                          '${myIngredients.where((element) => element.type == IngredientType.legume).toList().fold(0, (previousValue, element) => previousValue + element.number.toInt())}'))
+                ]),
+                BarChartGroupData(x: 10, barRods: [
+                  BarChartRodData(
+                      color: primaryColor,
+                      toY: double.parse(
+                          '${myIngredients.where((element) => element.type == IngredientType.pasta).toList().fold(0, (previousValue, element) => previousValue + element.number.toInt())}'))
+                ]),
+                BarChartGroupData(x: 11, barRods: [
+                  BarChartRodData(
+                      color: primaryColor,
+                      toY: double.parse(
+                          '${myIngredients.where((element) => element.type == IngredientType.other).toList().fold(0, (previousValue, element) => previousValue + element.number.toInt())}'))
                 ]),
               ],
               titlesData: FlTitlesData(
@@ -114,11 +162,18 @@ class _GlobalViewWidgetState extends State<GlobalViewWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text('Fruits', style: GoogleFonts.lato(color: tipo)),
-                        Text('Vegetables',
-                            style: GoogleFonts.lato(color: tipo)),
-                        Text('Meal', style: GoogleFonts.lato(color: tipo)),
-                        Text('Feculent', style: GoogleFonts.lato(color: tipo)),
+                        Text('F', style: GoogleFonts.lato(color: tipo)),
+                        Text('V', style: GoogleFonts.lato(color: tipo)),
+                        Text('M', style: GoogleFonts.lato(color: tipo)),
+                        Text('FC', style: GoogleFonts.lato(color: tipo)),
+                        Text('S', style: GoogleFonts.lato(color: tipo)),
+                        Text('DP', style: GoogleFonts.lato(color: tipo)),
+                        Text('M', style: GoogleFonts.lato(color: tipo)),
+                        Text('FS', style: GoogleFonts.lato(color: tipo)),
+                        Text('C', style: GoogleFonts.lato(color: tipo)),
+                        Text('P', style: GoogleFonts.lato(color: tipo)),
+                        Text('B', style: GoogleFonts.lato(color: tipo)),
+                        Text('Other', style: GoogleFonts.lato(color: tipo)),
                       ],
                     ),
                   ),

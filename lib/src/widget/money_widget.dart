@@ -24,7 +24,7 @@ class _DayMoneySpentWidgetState extends State<DayMoneySpentWidget> {
   @override
   void initState() {
     super.initState();
-    isCheaper = sum(todayReicipe!
+    isCheaper = sum(todayrecipe!
             .where((element) => element.cost.runtimeType == String)
             .map((e) => e.cost)
             .toList()) >
@@ -85,7 +85,7 @@ class _DayMoneySpentWidgetState extends State<DayMoneySpentWidget> {
                     minX: 0,
                     maxX: 3,
                     minY: 0,
-                    maxY: double.parse(todayReicipe!
+                    maxY: double.parse(todayrecipe!
                         .reduce((value, element) => double.parse(value.cost) >
                                 double.parse(element.cost)
                             ? value
@@ -96,27 +96,27 @@ class _DayMoneySpentWidgetState extends State<DayMoneySpentWidget> {
                           spots: [
                             FlSpot(
                                 0,
-                                todayReicipe![0] !=
-                                        ReicipeContent(ingredients: [])
-                                    ? double.parse(todayReicipe![0].cost)
+                                todayrecipe![0] !=
+                                        recipeContent(ingredients: [])
+                                    ? double.parse(todayrecipe![0].cost)
                                     : 0),
                             FlSpot(
                                 1,
-                                todayReicipe![1] !=
-                                        ReicipeContent(ingredients: [])
-                                    ? double.parse(todayReicipe![1].cost)
+                                todayrecipe![1] !=
+                                        recipeContent(ingredients: [])
+                                    ? double.parse(todayrecipe![1].cost)
                                     : 0),
                             FlSpot(
                                 2,
-                                todayReicipe![2] !=
-                                        ReicipeContent(ingredients: [])
-                                    ? double.parse(todayReicipe![2].cost)
+                                todayrecipe![2] !=
+                                        recipeContent(ingredients: [])
+                                    ? double.parse(todayrecipe![2].cost)
                                     : 0),
                             FlSpot(
                                 3,
-                                todayReicipe![3] !=
-                                        ReicipeContent(ingredients: [])
-                                    ? double.parse(todayReicipe![3].cost)
+                                todayrecipe![3] !=
+                                        recipeContent(ingredients: [])
+                                    ? double.parse(todayrecipe![3].cost)
                                     : 0)
                           ],
                           isCurved: true,
@@ -163,7 +163,7 @@ class _DayMoneySpentWidgetState extends State<DayMoneySpentWidget> {
                   child: Row(
                     children: [
                       Text(
-                        '€${sum(todayReicipe!.where((element) => element.cost.runtimeType == String).map((e) => e.cost).toList())}',
+                        '€${sum(todayrecipe!.where((element) => element.cost.runtimeType == String).map((e) => e.cost).toList())}',
                         style: GoogleFonts.lato(
                             color: backgroundColor,
                             fontSize: 30,
@@ -185,7 +185,7 @@ class _DayMoneySpentWidgetState extends State<DayMoneySpentWidget> {
                   child: Row(
                     children: [
                       Text(
-                        '${(sum(todayReicipe!.where((element) => element.cost.runtimeType == String).map((e) => e.cost).toList()) - sum(weekday[(currentday - 2) % 7]!.where((element) => element.cost.runtimeType == String).map((e) => e.cost).toList())) / sum(weekday[(currentday - 2) % 7]!.where((element) => element.cost.runtimeType == String).map((e) => e.cost).toList()) * 100}% ',
+                        '${(sum(todayrecipe!.where((element) => element.cost.runtimeType == String).map((e) => e.cost).toList()) - sum(weekday[(currentday - 2) % 7]!.where((element) => element.cost.runtimeType == String).map((e) => e.cost).toList())) / sum(weekday[(currentday - 2) % 7]!.where((element) => element.cost.runtimeType == String).map((e) => e.cost).toList()) * 100}% ',
                         style: GoogleFonts.lato(
                             color: backgroundColor,
                             fontSize: 18,
@@ -408,7 +408,7 @@ class _MonthMoneySpentWidgetState extends State<MonthMoneySpentWidget> {
   @override
   void initState() {
     super.initState();
-    isCheaper = sum(todayReicipe!
+    isCheaper = sum(todayrecipe!
             .where((element) => element.cost.runtimeType == String)
             .map((e) => e.cost)
             .toList()) >
@@ -504,7 +504,7 @@ class _MonthMoneySpentWidgetState extends State<MonthMoneySpentWidget> {
                   child: Row(
                     children: [
                       Text(
-                        '€${sum(todayReicipe!.where((element) => element.cost.runtimeType == String).map((e) => e.cost).toList())}',
+                        '€${sum(todayrecipe!.where((element) => element.cost.runtimeType == String).map((e) => e.cost).toList())}',
                         style: GoogleFonts.lato(
                             color: typographyColor2,
                             fontSize: 30,
@@ -526,7 +526,7 @@ class _MonthMoneySpentWidgetState extends State<MonthMoneySpentWidget> {
                   child: Row(
                     children: [
                       Text(
-                        '${(sum(todayReicipe!.where((element) => element.cost.runtimeType == String).map((e) => e.cost).toList()) - sum(weekday[(currentday - 2) % 7]!.where((element) => element.cost.runtimeType == String).map((e) => e.cost).toList())) / sum(weekday[(currentday - 2) % 7]!.where((element) => element.cost.runtimeType == String).map((e) => e.cost).toList()) * 100}% ',
+                        '${(sum(todayrecipe!.where((element) => element.cost.runtimeType == String).map((e) => e.cost).toList()) - sum(weekday[(currentday - 2) % 7]!.where((element) => element.cost.runtimeType == String).map((e) => e.cost).toList())) / sum(weekday[(currentday - 2) % 7]!.where((element) => element.cost.runtimeType == String).map((e) => e.cost).toList()) * 100}% ',
                         style: GoogleFonts.lato(
                             color: typographyColor2,
                             fontSize: 18,
