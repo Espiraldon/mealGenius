@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:mealgenius/src/data/data.dart';
 import 'package:mealgenius/src/models/authentification.dart';
 import 'package:mealgenius/src/models/content.dart';
-import 'package:mealgenius/src/screens/guestscreen.dart';
+//import 'package:mealgenius/src/screens/guestscreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mealgenius/src/screens/private/home.dart';
-import 'package:mealgenius/src/screens/private/home_screen.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:mealgenius/src/models/content.dart';
+import 'package:mealgenius/src/models/ingredientcontent.dart';
 
 Future<IngredientContent?> fetchIngredientByName(String name) async {
   final response =
