@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mealgenius/src/screens/public/auth.dart';
 import 'package:mealgenius/src/screens/public/CGU.dart';
 import 'package:mealgenius/src/screens/public/registration.dart';
 import 'package:mealgenius/src/screens/public/social_screen.dart';
@@ -28,10 +27,10 @@ class _GuestScreeenState extends State<GuestScreeen> {
           onChangedStep: (index) => setState(() {
                 _indexSelected = index;
               })),
-      AuthScreen(
+      /*AuthScreen(
           onChangedStep: (index) => setState(() {
                 _indexSelected = index;
-              })),
+              })),*/
       Registration(
           onChangedStep: (index) => setState(() {
                 _indexSelected = index;
